@@ -63,7 +63,7 @@ export function renderDetailPlaceholder(ctx) {
   const items = [
     'Track your progress by ticking the checkbox on each trophy card as you earn it.',
     'Use the chips and search above to filter the checklist by kind, grade, or whether a trophy can be missed.',
-    'Turn on Spoiler mode to mask the names and descriptions of story trophies you haven\'t earned yet.',
+    'Turn on Spoiler mode to hide the names and descriptions of story trophies you haven\'t earned yet (earned trophies are always shown). Toggle it off anytime in Settings or via the Spoiler chip to reveal them.',
     'Export or import your progress file in Settings to back it up or move it between devices.',
   ];
   for (const it of items) {

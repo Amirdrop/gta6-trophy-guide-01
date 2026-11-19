@@ -40,7 +40,7 @@ async function boot() {
     filters: createFilters(),
     spoiler: !!store.getSetting('spoiler'),
     selected: null,
-    tab: (location.hash.replace('#', '') in TABS) ? location.hash.replace('#', '') : 'checklist',
+    tab: TABS.includes(location.hash.replace('#', '')) ? location.hash.replace('#', '') : 'checklist',
   };
 
   const root = document.getElementById('app');
@@ -124,7 +124,7 @@ async function boot() {
   document.addEventListener('keydown', (e) => {
     if (e.key === '/') {
       e.preventDefault();
-      const input = viewHost.querySelector('.search-box');
+      const input = document.querySelector('.search-box');
       if (input) input.focus();
       return;
     }

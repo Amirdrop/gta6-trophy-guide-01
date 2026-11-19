@@ -7,6 +7,8 @@ export function renderChecklist(ctx) {
   const h2 = el('h2', '', 'Trophy Checklist');
   list.appendChild(h2);
 
+  list.appendChild(renderProgressSummary(ctx));
+
   list.appendChild(renderChipBar(ctx));
 
   const cards = el('div', 'checklist-grid');
@@ -41,7 +43,7 @@ export function renderChecklist(ctx) {
 
     if (masked) {
       card.appendChild(el('h3', 'trophy-name masked', 'Hidden — story spoiler'));
-      card.appendChild(el('p', 'trophy-desc masked', 'Earn this trophy to reveal the details.'));
+      card.appendChild(el('p', 'trophy-desc masked', 'The name and description are hidden until you earn this story trophy. Toggle Spoiler mode in Settings or the chip to reveal them.'));
     } else {
       const name = el('button', 'trophy-name', t.name);
       name.type = 'button';
@@ -68,6 +70,26 @@ export function renderChecklist(ctx) {
 
   list.appendChild(cards);
   return list;
+}
+
+function renderProgressSummary(ctx) {
+  const panel = el('div', 'progress-summary');
+  const total = ctx.trophies.length || 1;
+  const earned = ctx.store.earnedSize();
+  const pct = Math.round((earned / total) * 100);
+
+  const bar = el('div', 'progress-summary-bar');
+  const fill = el('div', 'progress-summary-fill');
+  fill.style.width = pct + '%';
+  bar.appendChild(fill);
+  panel.appendChild(bar);
+
+  const label = el('div', 'progress-summary-label');
+  label.appendChild(el('span', '', earned + ' / ' + total + ' unlocked'));
+  label.appendChild(el('span', 'progress-summary-pct', pct + '% platinum progress'));
+  panel.appendChild(label);
+
+  return panel;
 }
 
 function renderChipBar(ctx) {
