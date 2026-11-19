@@ -1,0 +1,106 @@
+[
+  {
+    "stage": 1,
+    "title": "Start the story",
+    "blurb": "Begin the campaign and follow the opening missions from the very first story beats. Do the early story trophies now, before anything else, so you establish the save and unlock the core loop.",
+    "trophies": [
+      2,
+      3,
+      8,
+      44,
+      45,
+      46
+    ]
+  },
+  {
+    "stage": 2,
+    "title": "Chapters and big missions",
+    "blurb": "Keep playing through the main chapters and the big set-piece missions, ticking off the story trophies as they come. Stay alert for anything flagged missable and grab those while their quest is still available.",
+    "trophies": [
+      4,
+      5,
+      6,
+      9,
+      10,
+      11,
+      12,
+      13
+    ]
+  },
+  {
+    "stage": 3,
+    "title": "Strangers and side stories",
+    "blurb": "Turn aside from the main path to help the locals with their strangers-and-side missions. Do any missable-flagged trophies here while those activities remain available, since they can vanish as the story moves on.",
+    "trophies": [
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      29
+    ]
+  },
+  {
+    "stage": 4,
+    "title": "Explore Leonida",
+    "blurb": "Spend time moving through Leonida itself, opening up the map and hitting the exploration trophies. Save exploration until you are fairly well settled so you are not backtracking across the whole state.",
+    "trophies": [
+      28,
+      30,
+      31,
+      35,
+      42,
+      54,
+      55
+    ]
+  },
+  {
+    "stage": 5,
+    "title": "Activities and challenges",
+    "blurb": "Work through the activities and challenge trophies, grinding counts alongside your normal play rather than forcing them at the end. Bump the numbers up whenever a natural opportunity presents itself.",
+    "trophies": [
+      15,
+      16,
+      17,
+      18,
+      19,
+      32
+    ]
+  },
+  {
+    "stage": 6,
+    "title": "Crime and the economy",
+    "blurb": "Handle the crime and economy trophies, working the wanted-level and money objectives as the opportunities appear in-game. Do anything flagged missable early and keep the counts ticking over through normal play.",
+    "trophies": [
+      33,
+      34,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      43,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53
+    ]
+  },
+  {
+    "stage": 7,
+    "title": "The road to 100%",
+    "blurb": "Finish the clean-up run for 100% completion and any remaining trophies, then close out the platinum last. This is the deliberate end-game sweep that ties off everything left on the list.",
+    "trophies": [
+      1,
+      7,
+      14
+    ]
+  }
+]
