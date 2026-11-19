@@ -9,13 +9,24 @@ export function renderPlanner(ctx) {
   const ordered = [...ctx.trophies].sort(
     (a, b) => (a.stage == null ? 99 : a.stage) - (b.stage == null ? 99 : b.stage) || a.id - b.id
   );
-  const next = ordered.filter((t) => !ctx.store.isEarned(t.name)).slice(0, 8);
+  const remaining = ordered.filter((t) => !ctx.store.isEarned(t.name));
+  const PLAN_LIMIT = 8;
+  const next = remaining.slice(0, PLAN_LIMIT);
+  const planFull = remaining.length > PLAN_LIMIT;
 
   wrap.appendChild(el('h3', '', 'Next up'));
   const list = el('div', 'planner-list');
 
   if (!next.length) {
     list.appendChild(el('div', 'empty', 'You have earned every trophy. Congratulations!'));
+  }
+
+  if (planFull) {
+    list.appendChild(el(
+      'p', 'planner-note',
+      'Showing your next ' + PLAN_LIMIT + ' trophies — ' + (remaining.length - PLAN_LIMIT) +
+      ' more remain. This list fills as you earn the ones above.'
+    ));
   }
 
   for (const t of next) {

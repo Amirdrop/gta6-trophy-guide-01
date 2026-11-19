@@ -24,11 +24,11 @@ export function renderRoadmap(ctx) {
       grouped.get(key).push(t);
     }
     const keys = [...grouped.keys()].sort((a, b) => a - b);
-    stages = keys.map((k, i) => ({
+    stages = keys.map((k) => ({
       key: k,
-      title: 'Stage ' + (i + 1),
+      title: k === 0 ? 'Other' : 'Stage ' + k,
       blurb: '',
-      stageNum: i + 1,
+      stageNum: k,
       trophies: grouped.get(k),
     }));
   }

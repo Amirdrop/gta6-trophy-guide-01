@@ -40,6 +40,7 @@ async function boot() {
     filters: createFilters(),
     spoiler: !!store.getSetting('spoiler'),
     selected: null,
+    // Default to the checklist tab when no valid hash is present in the URL.
     tab: TABS.includes(location.hash.replace('#', '')) ? location.hash.replace('#', '') : 'checklist',
   };
 
@@ -123,6 +124,7 @@ async function boot() {
 
   document.addEventListener('keydown', (e) => {
     if (e.key === '/') {
+      // Focus the global search box so the user can start typing anywhere.
       e.preventDefault();
       const input = document.querySelector('.search-box');
       if (input) input.focus();

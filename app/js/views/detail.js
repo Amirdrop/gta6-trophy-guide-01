@@ -49,6 +49,8 @@ export function renderDetail(ctx) {
 
   aside.appendChild(renderSources(t));
 
+  aside.appendChild(el('p', 'detail-tip', 'Tip: turn Spoiler mode off in Settings to see full story details.'));
+
   return aside;
 }
 

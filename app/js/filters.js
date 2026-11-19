@@ -1,4 +1,5 @@
 import { NORMAL_KIND, KIND_LABELS } from './data.js';
+import { includesCI } from './util.js';
 
 export const KIND_CHIPS = [
   { id: 'all', label: 'All' },
@@ -37,12 +38,12 @@ export function applyFilters(trophies, filters, store, spoiler) {
     if (filters.missable && !t.missable) return false;
 
     if (spoiler && t.kind === 'story' && !store.isEarned(t.name)) {
-      return true;
+      if (!query) return true;
+      return includesCI(`${t.name} ${t.description} ${t.guide || ''}`, query);
     }
 
-    if (query) {
-      const hay = `${t.name} ${t.description} ${t.guide || ''}`.toLowerCase();
-      if (!hay.includes(query)) return false;
+    if (query && !includesCI(`${t.name} ${t.description} ${t.guide || ''}`, query)) {
+      return false;
     }
 
     return true;

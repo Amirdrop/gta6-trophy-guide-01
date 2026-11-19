@@ -1,6 +1,14 @@
 [
   {
     "stage": 1,
+    "title": "Tour the map",
+    "blurb": "Unlock all four districts before chasing side content, so every region's activities and collectibles are open to you as you roam.",
+    "trophies": [
+      35
+    ]
+  },
+  {
+    "stage": 1,
     "title": "Start the story",
     "blurb": "Begin the campaign and follow the opening story beats. Knock out the early story trophies — Just Like Paradise (Gone Fishing), Paradise Lost (Chapter 1) and Trust (Breakfast Run) — then grab the one-off world moments In The Beginning…, Capital Offense and Let’s Go Bowling while their locations are fresh. Do these first to establish your save and unlock the core loop.",
     "trophies": [

@@ -15,6 +15,15 @@ const NORMAL_KIND = 'normal';
 
 export { GRADES, GRADE_ORDER, KINDS, KIND_LABELS, NORMAL_KIND };
 
+/**
+ * Normalize a raw trophies payload into a sorted, validated array of
+ * trophy records. Invalid entries are dropped; ordering is by stage
+ * (platinum first) then id.
+ *
+ * @param {Array|Object} raw Raw trophies array, or an object with a
+ *   `trophies` array.
+ * @returns {Array<Object>} Normalized, sorted trophy records.
+ */
 export function normalizeTrophies(raw) {
   const list = Array.isArray(raw) ? raw : (raw && Array.isArray(raw.trophies) ? raw.trophies : []);
   return list

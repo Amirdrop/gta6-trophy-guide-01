@@ -533,6 +533,13 @@ button.trophy-name:hover { color: var(--accent); }
 .stage-chip.grade-bronze { color: var(--bronze); }
 .stage-chip.earned { text-decoration: line-through; color: var(--muted); }
 .missable-dot { color: var(--accent); margin-left: 5px; }
+.missables-heading {
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 6px;
+  margin-top: 26px;
+}
+.missables-heading:first-of-type { margin-top: 4px; }
 
 .progressbar {
   height: 4px;
@@ -572,6 +579,15 @@ button.trophy-name:hover { color: var(--accent); }
 
 /* ---- Planner ---- */
 .planner-list { margin-bottom: 14px; }
+.planner-note {
+  color: var(--accent);
+  font-size: 13px;
+  margin: 0 0 12px;
+  padding: 8px 12px;
+  background: var(--pane-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
 .planner-item {
   display: flex;
   justify-content: space-between;

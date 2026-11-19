@@ -8,9 +8,12 @@ export function renderSettings(ctx) {
   spoilerBlock.appendChild(el('h3', '', 'Spoilers'));
   const spoilerRow = el('div', 'settings-row');
   const label = el('label', 'settings-label', 'Hide story trophy names and descriptions');
+  label.htmlFor = 'spoiler-toggle';
+  label.appendChild(el('p', 'settings-hint', 'Masks the name and description of any trophy that reveals story, mission, or plot details.'));
   label.appendChild(el('p', 'settings-hint', 'Earned trophies are always revealed.'));
   spoilerRow.appendChild(label);
   const sbox = document.createElement('input');
+  sbox.id = 'spoiler-toggle';
   sbox.type = 'checkbox';
   sbox.checked = !!ctx.spoiler;
   sbox.addEventListener('change', () => ctx.onSpoiler(sbox.checked));

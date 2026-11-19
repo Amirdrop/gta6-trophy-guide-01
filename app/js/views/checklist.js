@@ -79,6 +79,11 @@ function renderProgressSummary(ctx) {
   const pct = Math.round((earned / total) * 100);
 
   const bar = el('div', 'progress-summary-bar');
+  bar.setAttribute('role', 'progressbar');
+  bar.setAttribute('aria-valuenow', String(pct));
+  bar.setAttribute('aria-valuemin', '0');
+  bar.setAttribute('aria-valuemax', '100');
+  bar.setAttribute('aria-label', pct + '% platinum progress');
   const fill = el('div', 'progress-summary-fill');
   fill.style.width = pct + '%';
   bar.appendChild(fill);

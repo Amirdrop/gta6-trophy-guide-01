@@ -1,17 +1,25 @@
 const STORE_KEY = 'gta6trophies.v1';
+const SAVE_VERSION = 1;
 
 const DEFAULT_SETTINGS = {
   spoiler: false,
 };
 
 function loadRaw() {
+  let raw;
   try {
-    const raw = JSON.parse(localStorage.getItem(STORE_KEY) ?? 'null');
-    if (raw && typeof raw === 'object') return raw;
+    raw = JSON.parse(localStorage.getItem(STORE_KEY) ?? 'null');
   } catch {
-    /* ignore corrupt storage */
+    return null; /* corrupt storage */
   }
-  return null;
+  if (!raw || typeof raw !== 'object') return null;
+  if (raw.saveVersion !== SAVE_VERSION) {
+    return null; /* unknown or stale save format: fall back to defaults */
+  }
+  if (!Array.isArray(raw.earned)) raw.earned = [];
+  raw.earned = raw.earned.filter((id) => typeof id === 'string');
+  if (!raw.settings || typeof raw.settings !== 'object') raw.settings = {};
+  return raw;
 }
 
 export function createStore() {
@@ -22,8 +30,12 @@ export function createStore() {
   let listeners = [];
 
   function persist() {
-    const data = { earned: [...earned], settings };
-    localStorage.setItem(STORE_KEY, JSON.stringify(data));
+    const data = { saveVersion: SAVE_VERSION, earned: [...earned], settings };
+    try {
+      localStorage.setItem(STORE_KEY, JSON.stringify(data));
+    } catch {
+      /* storage unavailable or full: keep in-memory state, degrade gracefully */
+    }
     notify();
   }
 

@@ -14,3 +14,7 @@ export function escapeHtml(str) {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
 }
+
+export function includesCI(haystack, needle) {
+  return String(haystack).toLowerCase().includes(String(needle).toLowerCase());
+}

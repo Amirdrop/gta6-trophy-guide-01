@@ -53,10 +53,11 @@ export function renderShell(trophies, store, activeTab, onTab) {
   for (const g of GRADES) {
     const n = countByGrade(trophies, g);
     if (n === 0) continue;
+    const label = g.charAt(0).toUpperCase() + g.slice(1);
     const item = el('span', 'grade-counter');
     item.appendChild(el('span', 'grade-dot ' + g));
-    item.appendChild(el('span', '', g));
-    item.appendChild(el('b', '', ' ' + n));
+    item.appendChild(el('span', '', label));
+    item.appendChild(el('b', '', String(n)));
     counters.appendChild(item);
   }
   progress.appendChild(counters);
