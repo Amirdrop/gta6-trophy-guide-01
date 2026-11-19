@@ -1,5 +1,6 @@
 // A tiny static server for app/ (Node 22, standard library only), so the guide can be run locally without a
-// build step: `node serve.ts` serves app/ on http://localhost:8080 (`--port <n>` for another port). It sends the MIME
+// build step: `node serve.ts` serves app/ on http://localhost:8080 (`--port <n>` for another port). The PORT
+// environment variable also overrides the default 8080 (it yields to `--port` when both are given). It sends the MIME
 // types a browser needs, refuses any path outside app/, and otherwise does nothing clever: this is a development
 // convenience, not a web server for the internet.
 import { createReadStream, statSync } from 'node:fs';
@@ -10,8 +11,9 @@ import { fileURLToPath } from 'node:url';
 const root = resolve(fileURLToPath(new URL('./app', import.meta.url)));
 const args = process.argv.slice(2);
 const portIndex = args.indexOf('--port');
-const requested = portIndex === -1 ? 8080 : Number(args[portIndex + 1]);
-const port = Number.isInteger(requested) && requested > 0 && requested < 65536 ? requested : 8080;
+const defaultPort = Number(process.env.PORT) || 8080;
+const requested = portIndex === -1 ? defaultPort : Number(args[portIndex + 1]);
+const port = Number.isInteger(requested) && requested > 0 && requested < 65536 ? requested : defaultPort;
 
 const MIME: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',

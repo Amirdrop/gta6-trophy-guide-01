@@ -3,6 +3,11 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDossier } from './vendor/makefun-frontend.ts';
 
+const APP_VERSION = '1.1';
+
+// Packaging step for the make.fun build: this validates the app/ tree against hard
+// size limits, copies it (plus any screenshots) into the output directory, and emits
+// a dossier.json so the runtime can present the guide. It is not run in the browser.
 const here = fileURLToPath(new URL('.', import.meta.url));
 const out = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 

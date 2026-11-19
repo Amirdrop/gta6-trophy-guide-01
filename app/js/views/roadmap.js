@@ -41,7 +41,11 @@ export function renderRoadmap(ctx) {
   for (const s of stages) {
     const card = el('div', 'stage');
     const head = el('div', 'stage-head');
-    head.appendChild(el('h3', '', s.title));
+    if (s.stageNum != null) {
+      head.appendChild(el('h3', '', 'Stage ' + s.stageNum + ' of ' + stages.length + ' — ' + s.title));
+    } else {
+      head.appendChild(el('h3', '', s.title));
+    }
     const earned = s.trophies.filter((t) => ctx.store.isEarned(t.name)).length;
     head.appendChild(el('span', 'stage-progress', earned + ' / ' + s.trophies.length + ' earned'));
     card.appendChild(head);

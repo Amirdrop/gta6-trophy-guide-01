@@ -8,6 +8,7 @@ export function renderDetail(ctx) {
 
   const head = el('div', 'detail-head');
   head.appendChild(el('span', 'grade-badge ' + t.grade, t.grade));
+  head.appendChild(el('span', 'detail-kind muted', describeKind(t.kind)));
   const close = el('button', 'detail-close', 'x');
   close.type = 'button';
   close.setAttribute('aria-label', 'Close');

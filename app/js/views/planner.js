@@ -4,7 +4,6 @@ import { difficultyDots } from './checklist.js';
 
 export function renderPlanner(ctx) {
   const wrap = el('section', 'view-pane');
-  wrap.appendChild(el('h2', '', 'Planner'));
 
   const ordered = [...ctx.trophies].sort(
     (a, b) => (a.stage == null ? 99 : a.stage) - (b.stage == null ? 99 : b.stage) || a.id - b.id
@@ -14,6 +13,8 @@ export function renderPlanner(ctx) {
   const next = remaining.slice(0, PLAN_LIMIT);
   const planFull = remaining.length > PLAN_LIMIT;
 
+  wrap.appendChild(el('h2', '', 'Planner'));
+  wrap.appendChild(el('p', 'planner-count', 'Route: ' + remaining.length + ' of 55 planned'));
   wrap.appendChild(el('h3', '', 'Next up'));
   const list = el('div', 'planner-list');
 

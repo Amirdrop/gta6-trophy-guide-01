@@ -37,7 +37,7 @@ export function applyFilters(trophies, filters, store, spoiler) {
     if (filters.grade !== 'all' && t.grade !== filters.grade) return false;
     if (filters.missable && !t.missable) return false;
 
-    if (spoiler && t.kind === 'story' && !store.isEarned(t.name)) {
+    if (isMaskedStory(t, store, spoiler)) {
       if (!query) return true;
       return includesCI(`${t.name} ${t.description} ${t.guide || ''}`, query);
     }
@@ -50,7 +50,7 @@ export function applyFilters(trophies, filters, store, spoiler) {
   });
 }
 
-export function isMasked(t, store, spoiler) {
+export function isMaskedStory(t, store, spoiler) {
   return !!spoiler && t.kind === 'story' && !store.isEarned(t.name);
 }
 

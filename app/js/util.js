@@ -15,6 +15,7 @@ export function escapeHtml(str) {
     .replace(/'/g, '&#39;');
 }
 
+/** Case-insensitive substring check. */
 export function includesCI(haystack, needle) {
   return String(haystack).toLowerCase().includes(String(needle).toLowerCase());
 }

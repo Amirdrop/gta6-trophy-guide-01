@@ -11,6 +11,9 @@ export function renderMissables(ctx) {
     return wrap;
   }
 
+  const titleEl = wrap.querySelector('h2');
+  if (titleEl) titleEl.textContent = 'Missables (' + missables.length + ')';
+
   const stageTitles = new Map(
     (Array.isArray(ctx.roadmap) ? ctx.roadmap : [])
       .map((s) => [s.stage, s.title])

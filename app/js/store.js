@@ -5,6 +5,15 @@ const DEFAULT_SETTINGS = {
   spoiler: false,
 };
 
+export function hasSave() {
+  try {
+    const raw = JSON.parse(localStorage.getItem(STORE_KEY) ?? 'null');
+    return !!(raw && typeof raw === 'object' && raw.saveVersion === SAVE_VERSION);
+  } catch {
+    return false;
+  }
+}
+
 function loadRaw() {
   let raw;
   try {

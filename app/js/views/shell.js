@@ -24,6 +24,7 @@ export function renderShell(trophies, store, activeTab, onTab) {
   for (const t of TABS) {
     const btn = el('button', '', t.label);
     btn.type = 'button';
+    btn.title = t.label;
     if (t.id === activeTab) btn.classList.add('active');
     btn.addEventListener('click', () => onTab(t.id));
     nav.appendChild(btn);

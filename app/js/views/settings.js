@@ -1,4 +1,5 @@
 import { el } from '../util.js';
+import { hasSave } from '../store.js';
 
 export function renderSettings(ctx) {
   const wrap = el('section', 'view-pane');
@@ -45,7 +46,10 @@ export function renderSettings(ctx) {
   dataBlock.appendChild(row2);
 
   const row3 = el('div', 'settings-row');
-  row3.appendChild(el('span', 'settings-label', 'Clear all earned progress.'));
+  row3.appendChild(el('span', 'settings-label', hasSave() ? 'Clear all earned progress.' : 'No saved progress yet.'));
+  if (hasSave()) {
+    row3.appendChild(el('p', 'settings-hint', 'Reset your progress? This cannot be undone.'));
+  }
   const resetBtn = el('button', 'btn btn-danger', 'Reset');
   resetBtn.type = 'button';
   resetBtn.addEventListener('click', () => {

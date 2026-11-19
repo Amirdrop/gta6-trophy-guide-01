@@ -1,5 +1,5 @@
 import { el } from '../util.js';
-import { applyFilters, isMasked, describeKind, KIND_CHIPS, GRADE_CHIPS } from '../filters.js';
+import { applyFilters, isMaskedStory, describeKind, KIND_CHIPS, GRADE_CHIPS } from '../filters.js';
 
 export function renderChecklist(ctx) {
   const list = el('section', 'view-pane checklist-pane');
@@ -19,7 +19,7 @@ export function renderChecklist(ctx) {
   }
 
   for (const t of filtered) {
-    const masked = isMasked(t, ctx.store, ctx.spoiler);
+    const masked = isMaskedStory(t, ctx.store, ctx.spoiler);
     const card = el('article', 'trophy-card');
     if (ctx.store.isEarned(t.name)) {
       card.classList.add('earned');

@@ -26,6 +26,9 @@ export { GRADES, GRADE_ORDER, KINDS, KIND_LABELS, NORMAL_KIND };
  */
 export function normalizeTrophies(raw) {
   const list = Array.isArray(raw) ? raw : (raw && Array.isArray(raw.trophies) ? raw.trophies : []);
+  if (!list.length) {
+    throw new Error('Invalid trophy data: expected an array or an object with a "trophies" array.');
+  }
   return list
     .map(normalizeOne)
     .filter((t) => t != null)
