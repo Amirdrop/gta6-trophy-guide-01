@@ -19,7 +19,7 @@
       "kind": "completion",
       "stage": 7,
       "missable": false,
-      "difficulty": 4,
+      "difficulty": 5,
       "steps": [
         "Earn every other trophy — the platinum is the last one you unlock."
       ],
@@ -34,7 +34,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "100+ hrs"
+      "timeEstimate": "90-120 hrs"
     },
     {
       "id": 2,
@@ -62,7 +62,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "1-3 hrs"
+      "timeEstimate": "20-30 min"
     },
     {
       "id": 3,
@@ -90,7 +90,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "1-3 hrs"
+      "timeEstimate": "1-2 hrs"
     },
     {
       "id": 4,
@@ -118,7 +118,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "1-3 hrs"
+      "timeEstimate": "2-4 hrs"
     },
     {
       "id": 5,
@@ -130,7 +130,7 @@
       "kind": "story",
       "stage": 2,
       "missable": false,
-      "difficulty": 1,
+      "difficulty": 2,
       "steps": [
         "Keep advancing the story past Chapter 2.",
         "Complete the final mission of Chapter 3 to finish the chapter."
@@ -146,7 +146,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "1-3 hrs"
+      "timeEstimate": "2-5 hrs"
     },
     {
       "id": 6,
@@ -158,7 +158,7 @@
       "kind": "story",
       "stage": 2,
       "missable": false,
-      "difficulty": 1,
+      "difficulty": 2,
       "steps": [
         "Progress through the campaign into Chapter 4.",
         "Complete the final mission of Chapter 4 to finish the chapter."
@@ -174,7 +174,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "1-3 hrs"
+      "timeEstimate": "3-6 hrs"
     },
     {
       "id": 7,
@@ -186,7 +186,7 @@
       "kind": "story",
       "stage": 7,
       "missable": false,
-      "difficulty": 3,
+      "difficulty": 2,
       "steps": [
         "Play through the entire main campaign to reach the final mission.",
         "Complete the final mission to see the story through to its end."
@@ -202,7 +202,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "80+ hrs"
+      "timeEstimate": "4-8 hrs"
     },
     {
       "id": 8,
@@ -214,7 +214,7 @@
       "kind": "story",
       "stage": 1,
       "missable": false,
-      "difficulty": 1,
+      "difficulty": 2,
       "steps": [
         "Progress through the early story to the Breakfast Run mission.",
         "Complete Breakfast Run to earn the trophy."
@@ -230,7 +230,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "1-3 hrs"
+      "timeEstimate": "30-45 min"
     },
     {
       "id": 9,
@@ -242,7 +242,7 @@
       "kind": "missions",
       "stage": 2,
       "missable": false,
-      "difficulty": 2,
+      "difficulty": 3,
       "steps": [
         "Reach the point in the story where The Cartel Heist mission becomes available.",
         "Complete The Cartel Heist to unlock the trophy."
@@ -258,7 +258,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "2-4 hrs"
+      "timeEstimate": "1-2 hrs"
     },
     {
       "id": 10,
@@ -270,7 +270,7 @@
       "kind": "missions",
       "stage": 2,
       "missable": false,
-      "difficulty": 2,
+      "difficulty": 3,
       "steps": [
         "Progress the story until the Child's Play mission becomes available.",
         "Complete Child's Play to unlock the trophy."
@@ -286,7 +286,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "2-4 hrs"
+      "timeEstimate": "1-2 hrs"
     },
     {
       "id": 11,
@@ -298,7 +298,7 @@
       "kind": "missions",
       "stage": 2,
       "missable": false,
-      "difficulty": 2,
+      "difficulty": 4,
       "steps": [
         "Progress the story until the Headliners mission becomes available.",
         "Complete Headliners to unlock the trophy."
@@ -314,7 +314,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "2-4 hrs"
+      "timeEstimate": "2-3 hrs"
     },
     {
       "id": 12,
@@ -326,7 +326,7 @@
       "kind": "missions",
       "stage": 2,
       "missable": false,
-      "difficulty": 2,
+      "difficulty": 4,
       "steps": [
         "Progress the story until the VCIA Takedown mission becomes available.",
         "Complete VCIA Takedown to unlock the trophy."
@@ -342,7 +342,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "2-4 hrs"
+      "timeEstimate": "2-3 hrs"
     },
     {
       "id": 13,
@@ -354,7 +354,7 @@
       "kind": "missions",
       "stage": 2,
       "missable": false,
-      "difficulty": 2,
+      "difficulty": 4,
       "steps": [
         "Progress the story until the Operation Savage Glory mission becomes available.",
         "Complete Operation Savage Glory to unlock the trophy."
@@ -370,7 +370,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "2-4 hrs"
+      "timeEstimate": "2-3 hrs"
     },
     {
       "id": 14,
@@ -401,7 +401,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "80+ hrs"
+      "timeEstimate": "10-15 hrs"
     },
     {
       "id": 15,
@@ -417,7 +417,7 @@
         "target": 250,
         "label": "stunts"
       },
-      "difficulty": 3,
+      "difficulty": 4,
       "steps": [
         "Complete 250 Stunts",
         "Stunts are available through the Activities menu",
@@ -435,7 +435,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "8-12 hrs"
+      "timeEstimate": "6-9 hrs"
     },
     {
       "id": 16,
@@ -451,7 +451,7 @@
         "target": 9,
         "label": "activity types"
       },
-      "difficulty": 1,
+      "difficulty": 3,
       "steps": [
         "Try each type of activity once",
         "Visit the Activities menu to see the available types",
@@ -469,7 +469,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "5-8 hrs"
+      "timeEstimate": "3-5 hrs"
     },
     {
       "id": 17,
@@ -503,7 +503,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "8-12 hrs"
+      "timeEstimate": "2-3 hrs"
     },
     {
       "id": 18,
@@ -519,7 +519,7 @@
         "target": 14,
         "label": "Top Fun locations"
       },
-      "difficulty": 2,
+      "difficulty": 4,
       "steps": [
         "Win a Top Fun Drone Race at every location",
         "Top Fun drone races are run through the Activities menu",
@@ -537,7 +537,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "5-8 hrs"
+      "timeEstimate": "3-5 hrs"
     },
     {
       "id": 19,
@@ -571,7 +571,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "5-8 hrs"
+      "timeEstimate": "2-4 hrs"
     },
     {
       "id": 20,
@@ -583,7 +583,7 @@
       "kind": "activities",
       "stage": 3,
       "missable": false,
-      "difficulty": 2,
+      "difficulty": 3,
       "steps": [
         "Beat Cal in a fishing challenge",
         "Meet Cal through a fishing activity",
@@ -601,7 +601,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "5-8 hrs"
+      "timeEstimate": "1-2 hrs"
     },
     {
       "id": 21,
@@ -613,7 +613,7 @@
       "kind": "strangers",
       "stage": 3,
       "missable": false,
-      "difficulty": 1,
+      "difficulty": 3,
       "steps": [
         "Complete an arcade game",
         "Find an arcade machine with playable games",
@@ -631,7 +631,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "3-5 hrs"
+      "timeEstimate": "2-3 hrs"
     },
     {
       "id": 22,
@@ -643,7 +643,7 @@
       "kind": "strangers",
       "stage": 3,
       "missable": false,
-      "difficulty": 2,
+      "difficulty": 3,
       "steps": [
         "Complete the final mission for Andy",
         "Find Andy's stranger strand and follow it",
@@ -673,7 +673,7 @@
       "kind": "strangers",
       "stage": 3,
       "missable": false,
-      "difficulty": 2,
+      "difficulty": 1,
       "steps": [
         "Complete the final mission for Kenton",
         "Find Kenton's stranger strand and follow it",
@@ -691,7 +691,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "3-5 hrs"
+      "timeEstimate": "0-30 min"
     },
     {
       "id": 24,
@@ -737,7 +737,7 @@
         "target": 8,
         "label": "stranger strands"
       },
-      "difficulty": 2,
+      "difficulty": 3,
       "steps": [
         "Complete 8 mission strands for strangers",
         "Strangers appear across the state of Leonida",
@@ -755,7 +755,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "8-12 hrs"
+      "timeEstimate": "3-5 hrs"
     },
     {
       "id": 26,
@@ -767,7 +767,7 @@
       "kind": "strangers",
       "stage": 3,
       "missable": false,
-      "difficulty": 2,
+      "difficulty": 3,
       "steps": [
         "Complete the final mission for Randy",
         "Find Randy's stranger strand and follow it",
@@ -797,7 +797,7 @@
       "kind": "strangers",
       "stage": 3,
       "missable": false,
-      "difficulty": 2,
+      "difficulty": 4,
       "steps": [
         "Complete the final mission for Tyrone",
         "Find Tyrone's stranger strand and follow it",
@@ -815,7 +815,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "3-5 hrs"
+      "timeEstimate": "2-3 hrs"
     },
     {
       "id": 28,
@@ -849,7 +849,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "6-10 hrs"
+      "timeEstimate": "2-3 hrs"
     },
     {
       "id": 29,
@@ -895,7 +895,7 @@
         "target": 3,
         "label": "card sets"
       },
-      "difficulty": 3,
+      "difficulty": 4,
       "steps": [
         "Complete 3 Collectible Card sets",
         "Collectible Cards are scattered around Leonida",
@@ -913,7 +913,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "8-12 hrs"
+      "timeEstimate": "15-20 hrs"
     },
     {
       "id": 31,
@@ -929,7 +929,7 @@
         "target": 100,
         "label": "WAiNK locations"
       },
-      "difficulty": 4,
+      "difficulty": 3,
       "steps": [
         "WAiNK It at 100 locations",
         "Find the WAiNK interactive spots around Leonida",
@@ -947,7 +947,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "8-12 hrs"
+      "timeEstimate": "10-15 hrs"
     },
     {
       "id": 32,
@@ -963,7 +963,7 @@
         "target": 50,
         "label": "challenges"
       },
-      "difficulty": 4,
+      "difficulty": 3,
       "steps": [
         "Complete 50 Challenges",
         "Challenges are tracked in the game menu",
@@ -981,7 +981,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "5-8 hrs"
+      "timeEstimate": "5-7 hrs"
     },
     {
       "id": 33,
@@ -1012,7 +1012,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "4-8 hrs"
+      "timeEstimate": "5-7 hrs"
     },
     {
       "id": 34,
@@ -1043,7 +1043,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "4-8 hrs"
+      "timeEstimate": "15-20 hrs"
     },
     {
       "id": 35,
@@ -1077,7 +1077,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "6-10 hrs"
+      "timeEstimate": "3-5 hrs"
     },
     {
       "id": 36,
@@ -1107,7 +1107,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "4-8 hrs"
+      "timeEstimate": "5-8 hrs"
     },
     {
       "id": 37,
@@ -1138,7 +1138,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "4-8 hrs"
+      "timeEstimate": "15-25 hrs"
     },
     {
       "id": 38,
@@ -1168,7 +1168,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "4-8 hrs"
+      "timeEstimate": "4-6 hrs"
     },
     {
       "id": 39,
@@ -1198,7 +1198,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "4-8 hrs"
+      "timeEstimate": "1-2 hrs"
     },
     {
       "id": 40,
@@ -1214,7 +1214,7 @@
         "target": 5,
         "label": "bank vaults"
       },
-      "difficulty": 4,
+      "difficulty": 5,
       "steps": [
         "Rob a bank vault and escape",
         "Repeat for five different vaults",
@@ -1232,7 +1232,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "8-12 hrs"
+      "timeEstimate": "10-15 hrs"
     },
     {
       "id": 41,
@@ -1262,7 +1262,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "4-8 hrs"
+      "timeEstimate": "2-3 hrs"
     },
     {
       "id": 42,
@@ -1296,7 +1296,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "6-10 hrs"
+      "timeEstimate": "8-12 hrs"
     },
     {
       "id": 43,
@@ -1312,7 +1312,7 @@
         "target": 9,
         "label": "gangs"
       },
-      "difficulty": 4,
+      "difficulty": 5,
       "steps": [
         "Find an Illegal Operation for each gang",
         "Rob all nine distinct gang operations",
@@ -1330,7 +1330,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "4-8 hrs"
+      "timeEstimate": "12-18 hrs"
     },
     {
       "id": 44,
@@ -1361,7 +1361,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "6-10 hrs"
+      "timeEstimate": "10-20 min"
     },
     {
       "id": 45,
@@ -1392,7 +1392,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "6-10 hrs"
+      "timeEstimate": "10-20 min"
     },
     {
       "id": 46,
@@ -1423,7 +1423,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "6-10 hrs"
+      "timeEstimate": "15-30 min"
     },
     {
       "id": 47,
@@ -1454,7 +1454,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "4-8 hrs"
+      "timeEstimate": "20-40 min"
     },
     {
       "id": 48,
@@ -1488,7 +1488,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "4-8 hrs"
+      "timeEstimate": "30-60 hrs"
     },
     {
       "id": 49,
@@ -1519,7 +1519,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "4-8 hrs"
+      "timeEstimate": "5-10 min"
     },
     {
       "id": 50,
@@ -1550,7 +1550,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "4-8 hrs"
+      "timeEstimate": "10-20 min"
     },
     {
       "id": 51,
@@ -1580,7 +1580,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "4-8 hrs"
+      "timeEstimate": "20-40 min"
     },
     {
       "id": 52,
@@ -1614,7 +1614,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "4-8 hrs"
+      "timeEstimate": "4-6 hrs"
     },
     {
       "id": 53,
@@ -1630,7 +1630,7 @@
         "target": 100000,
         "label": "$ spent"
       },
-      "difficulty": 4,
+      "difficulty": 3,
       "steps": [
         "Spend money across every shop",
         "Hit a combined total of $100,000",
@@ -1648,7 +1648,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "4-8 hrs"
+      "timeEstimate": "2-3 hrs"
     },
     {
       "id": 54,
@@ -1682,7 +1682,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "6-10 hrs"
+      "timeEstimate": "2-3 hrs"
     },
     {
       "id": 55,
@@ -1716,7 +1716,7 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "6-10 hrs"
+      "timeEstimate": "1-2 hrs"
     }
   ]
 }

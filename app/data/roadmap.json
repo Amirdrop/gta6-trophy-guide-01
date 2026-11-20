@@ -1,111 +1,163 @@
-[
-  {
-    "stage": 1,
-    "title": "Story Completion",
-    "description": "Play through the entire campaign, clearing every main story beat and chapter. Story trophies unlock automatically as you finish missions, so the only requirement is following the plot to its end. No grinding or side content is needed here — just push the story forward and enjoy it. The final mission trophy lands with the credits.",
-    "estimatedHours": "30-45 hrs",
-    "missable": false,
-    "trophies": [
-      { "id": 2 },
-      { "id": 3 },
-      { "id": 4 },
-      { "id": 5 },
-      { "id": 6 },
-      { "id": 8 },
-      { "id": 9 },
-      { "id": 10 },
-      { "id": 11 },
-      { "id": 12 },
-      { "id": 13 },
-      { "id": 7 }
-    ]
+{
+  "meta": {
+    "game": "Grand Theft Auto VI",
+    "platform": "PlayStation 5",
+    "target": "Platinum",
+    "stageCount": 6,
+    "estimatedTotal": "60-90 hrs"
   },
-  {
-    "stage": 2,
-    "title": "Collectibles & World",
-    "description": "Sweep the state of Leonida once the story has opened up the whole map. Knock out the collectible and exploration trophies by travelling region by region. Meditate at every spot, complete card sets, trigger every WAiNK location, discover vehicles, walk into all 52 areas, buy the garages and register rides. Doing these in one organised tour beats backtracking later.",
-    "estimatedHours": "12-18 hrs",
-    "missable": false,
-    "trophies": [
-      { "id": 28 },
-      { "id": 30 },
-      { "id": 31 },
-      { "id": 35 },
-      { "id": 42 },
-      { "id": 54 },
-      { "id": 55 }
-    ]
-  },
-  {
-    "stage": 3,
-    "title": "Strangers & Side Content",
-    "description": "Turn aside from the main path to help the locals and clear the stranger mission strands. Finish each named stranger's arc to its final mission for its closing trophy, win the fishing challenge and complete an arcade game. These vanish as the story advances, so clear them while the characters are still available. Pick up any you miss during the run and come back before the credits if you want the full set.",
-    "estimatedHours": "8-12 hrs",
-    "missable": true,
-    "trophies": [
-      { "id": 21 },
-      { "id": 22 },
-      { "id": 23 },
-      { "id": 24 },
-      { "id": 25 },
-      { "id": 26 },
-      { "id": 27 },
-      { "id": 29 },
-      { "id": 20 }
-    ]
-  },
-  {
-    "stage": 4,
-    "title": "Activities, Online & Shared Economy",
-    "description": "Grind the activity and challenge trophies alongside normal play rather than forcing them at the end. Pull stunts, try every activity type, gold the shooting ranges, win drone races and races, and complete challenges. Then handle the shared-economy trophies — making choices, laundering money and spending across shops — which build up naturally through the online and single-player economy. There is no dedicated multiplayer trophy list in this build; the GTA VI online model is folded into the shared economy above.",
-    "estimatedHours": "10-15 hrs",
-    "missable": false,
-    "trophies": [
-      { "id": 15 },
-      { "id": 16 },
-      { "id": 17 },
-      { "id": 18 },
-      { "id": 19 },
-      { "id": 32 },
-      { "id": 48 },
-      { "id": 52 },
-      { "id": 53 }
-    ]
-  },
-  {
-    "stage": 5,
-    "title": "Crime, Combat Cleanup & Missables",
-    "description": "Clean up the crime and combat trophies, and — most importantly — grab every missable moment before it slips away. Do the missable ones early and carefully: lose a 4-star wanted level with your partner, rob three shops back-to-back, force an unscheduled departure at VCIA, the Ocean Beach cocktail, the showroom smash, the bowling visit, the partnership breakthrough, the second-chance encounter and the weird 'what the hell' event. Then keep the counts ticking over: Combat Focus takedowns, the tank fight, a stealth jewelry heist, five bank vaults, an armored truck, all nine gang operations, the melee drive-by and the rest.",
-    "estimatedHours": "12-18 hrs",
-    "missable": true,
-    "trophies": [
-      { "id": 33, "missable": true },
-      { "id": 34, "missable": true },
-      { "id": 37, "missable": true },
-      { "id": 44, "missable": true },
-      { "id": 45, "missable": true },
-      { "id": 46, "missable": true },
-      { "id": 47, "missable": true },
-      { "id": 49, "missable": true },
-      { "id": 50, "missable": true },
-      { "id": 36 },
-      { "id": 38 },
-      { "id": 39 },
-      { "id": 40 },
-      { "id": 41 },
-      { "id": 43 },
-      { "id": 51 }
-    ]
-  },
-  {
-    "stage": 6,
-    "title": "Platinum Run",
-    "description": "With everything else done, finish the clean-up run for 100% completion, confirm no trophy was missed, and then the platinum unlocks the moment the rest of the list is complete. Save it for the very end — there is nothing special to do beyond holding every other trophy.",
-    "estimatedHours": "80-100 hrs total",
-    "missable": false,
-    "trophies": [
-      { "id": 14 },
-      { "id": 1 }
-    ]
-  }
-]
+  "stages": [
+    {
+      "id": "story",
+      "stage": 1,
+      "title": "Story Completion",
+      "subtitle": "Finish the Leonida campaign",
+      "blurb": "Play the main campaign from Gone Fishing through the final credits left to right. Every story trophy here unlocks automatically as the chapters roll by, so there is no grinding or collectible hunting yet. Go in loose and enjoy it — this is the only stage where you can freely free-roam and form your own route.",
+      "estimatedHours": "30-45 hrs",
+      "missable": false,
+      "focus": [
+        "Follow the main story missions only; side content waits until later stages.",
+        "Story, chapter and final-mission trophies (Just Like Paradise → You Gotta Know When to Get Off) pop automatically.",
+        "If a story mission offers a named alternative objective, do it the first time — several feed later crime trophies.",
+        "Mission trophies (Break the Bank → Snow Storm) unlock from the story heist missions."
+      ],
+      "trophies": [
+        2,
+        3,
+        8,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12,
+        13
+      ]
+    },
+    {
+      "id": "world",
+      "stage": 2,
+      "title": "Collectibles & World",
+      "subtitle": "Sweep every region of Leonida",
+      "blurb": "Once the story opens up the full map, tour the state region by region and sweep every activity and collectible in one organised trip: meditation spots, collectible card sets, WAiNK locations, the vehicle codex, all 52 areas of Leonida, the garage properties and vehicle registration. Backtracking the map is the single biggest time sink, so avoid it.",
+      "estimatedHours": "12-18 hrs",
+      "missable": false,
+      "focus": [
+        "Sweep region by region instead of hopping around the map.",
+        "Meditation, card sets, WAiNK and vehicle discovery all count toward 100%, so do them together.",
+        "Buy all 8 garage properties before your vehicle registration spree."
+      ],
+      "trophies": [
+        28,
+        30,
+        31,
+        35,
+        42,
+        54,
+        55
+      ]
+    },
+    {
+      "id": "side",
+      "stage": 3,
+      "title": "Strangers & Side Content",
+      "subtitle": "Help the locals before they vanish",
+      "blurb": "Stranger strands and fishing challenges dry up as the story advances, so clear every named stranger you meet while they are still on the map. Do all the Strangers & Freaks strands to their final mission, beat the fishing challenge, and finish an arcade game for Stick Fiddler.",
+      "estimatedHours": "8-12 hrs",
+      "missable": true,
+      "focus": [
+        "Complete each stranger's full strand to its last mission — partial arcs are lost after the credits.",
+        "Do the stranger and side content trophies while the missions are still live.",
+        "Baited My Tackle and Stick Fiddler are both easy to overlook late."
+      ],
+      "trophies": [
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        29
+      ]
+    },
+    {
+      "id": "activities",
+      "stage": 4,
+      "title": "Activities & Shared Economy",
+      "subtitle": "Grind activities alongside normal play",
+      "blurb": "Grind the repeatable activities while you free-roam rather than saving them for a final push: stunts, every activity type, gold shooting ranges, drone races and races. Then let the shared-economy trophies — laundering Marked Bills and spending in shops — build up naturally through the single-player and online economy.",
+      "estimatedHours": "10-15 hrs",
+      "missable": false,
+      "focus": [
+        "Cunning Stunts (with Gold adds for 250 stunts) is the longest grind — chip away at it constantly.",
+        "Gold all 42 Shooting Range challenges, not just silver.",
+        "Treat Yo Self and Dime on the Dollar tick up from normal spending; no dedicated grind needed."
+      ],
+      "trophies": [
+        15,
+        16,
+        17,
+        18,
+        19,
+        32,
+        52,
+        53
+      ]
+    },
+    {
+      "id": "crime",
+      "stage": 5,
+      "title": "Crime & Combat Cleanup",
+      "subtitle": "Heists, gangs and combat",
+      "blurb": "Clean up the crime and combat trophies. Most are repeatable, but a handful are missable — grab those early and carefully before the cops clamp down. Then keep the counts ticking over: Combat Focus takedowns, the tank fight, a stealth jewelry heist, five bank vaults, an armored truck and all nine gang operations.",
+      "estimatedHours": "12-18 hrs",
+      "missable": true,
+      "focus": [
+        "Do every missable trophy first — they can slip away if you are careless.",
+        "Rob five bank vaults, one by one and escape each time.",
+        "The stealth jewelry heist is unforgiving: stay unseen for the whole job."
+      ],
+      "trophies": [
+        33,
+        34,
+        37,
+        44,
+        45,
+        46,
+        47,
+        49,
+        50,
+        36,
+        38,
+        39,
+        40,
+        41,
+        43,
+        51,
+        48
+      ]
+    },
+    {
+      "id": "platinum",
+      "stage": 6,
+      "title": "Platinum Run",
+      "subtitle": "100% completion and the last gold",
+      "blurb": "Finish the clean-up run for 100% completion (A Long Road), confirm no trophy was missed, and the platinum unlocks once the rest of the list is complete. Save Vice Got a Price! for the very end — there is nothing special to do beyond holding every other trophy.",
+      "estimatedHours": "80-100 hrs total",
+      "missable": false,
+      "focus": [
+        "Reach 100% completion for A Long Road.",
+        "Sweep the checklist for any unearned trophy before you claim the platinum.",
+        "Vice Got a Price! pops last, automatically."
+      ],
+      "trophies": [
+        14,
+        1
+      ]
+    }
+  ]
+}

@@ -1,5 +1,10 @@
 /**
- * Shared DOM + string helpers used by the views and app shell.
+ * Tiny DOM + string helpers shared by every view.
+ *
+ * The app renders by hand-building nodes rather than dumping template strings
+ * into innerHTML, so these helpers keep view code short while keeping trophy
+ * text safe. `escapeHtml` is only used for the handful of attributes built as
+ * strings (titles, aria labels).
  */
 
 /** Create a DOM element with an optional class name and text content. */
@@ -10,7 +15,17 @@ export function el(tag, className, text) {
   return node;
 }
 
-/** HTML-escape a value for safe insertion into innerHTML / text nodes. */
+/** Create an activatable button with an optional class, label and click handler. */
+export function button(className, label, onClick) {
+  const node = document.createElement('button');
+  node.type = 'button';
+  if (className) node.className = className;
+  if (label != null) node.textContent = label;
+  if (onClick) node.addEventListener('click', onClick);
+  return node;
+}
+
+/** Escape a value for safe inline HTML/attribute use. */
 export function escapeHtml(value) {
   if (value == null) return '';
   return String(value)
@@ -24,4 +39,25 @@ export function escapeHtml(value) {
 /** Case-insensitive substring check on any value coerced to string. */
 export function includesCI(haystack, needle) {
   return String(haystack).toLowerCase().includes(String(needle).toLowerCase());
+}
+
+/** Join class names, dropping falsy values. */
+export function cls(...names) {
+  return names.filter(Boolean).join(' ');
+}
+
+/** Clamp a number into [min, max]. */
+export function clamp(n, min, max) {
+  return Math.min(max, Math.max(min, n));
+}
+
+/** Percent (0-100, rounded) of `part` out of `total`, safe when total is 0. */
+export function percent(part, total) {
+  if (!total) return 0;
+  return Math.min(100, Math.max(0, Math.round((part / total) * 100)));
+}
+
+/** Remove all children of a node. */
+export function clear(node) {
+  while (node && node.firstChild) node.removeChild(node.firstChild);
 }

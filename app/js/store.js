@@ -1,166 +1,126 @@
-const STORE_KEY = 'gta6trophies.v1';
-const SAVE_VERSION = 1;
-
-const DEFAULT_SETTINGS = {
-  spoiler: false,
-};
-
 /**
- * Deferred save helper. The first call writes through immediately so a quick
- * toggle is never lost; rapid follow-ups are coalesced into one trailing
- * write, keeping localStorage traffic low during bursts of toggles.
+ * store.js — persistent app state for earned trophies and settings.
+ *
+ * Design:
+ *   - One versioned JSON blob in localStorage under STORE_KEY. The version
+ *     lives in the blob, so a future migration can read and reshape old saves
+ *     instead of silently dropping them.
+ *   - Saves are written through synchronously so a click is never lost if the
+ *     tab closes immediately afterwards.
+ *   - Corrupt / foreign / unreadable saves never throw at startup: we fall back
+ *     to an empty state and keep the bad payload under BACKUP_KEY for debugging.
+ *   - Trophies are identified by name. Names are NFC-normalised and trimmed on
+ *     the way in and out so curly-quoted names survive import/export round trips.
+ *   - A tiny subscription lets views re-render after mutations without every
+ *     caller having to remember to do it.
  */
-function debounce(fn, wait) {
-  let timer = null;
-  let first = true;
-  return function () {
-    if (first) {
-      first = false;
-      fn();
-      return;
-    }
-    clearTimeout(timer);
-    timer = setTimeout(fn, wait);
-  };
+
+const STORE_KEY = 'gta6trophies.v2';
+const BACKUP_KEY = 'gta6trophies.corrupt';
+const SAVE_VERSION = 2;
+
+export const DEFAULT_SETTINGS = Object.freeze({
+  spoiler: false,
+  hideEarned: false,
+});
+
+export function normalizeName(value) {
+  if (typeof value !== 'string') return '';
+  const trimmed = value.trim();
+  if (!trimmed) return '';
+  try {
+    return trimmed.normalize('NFC');
+  } catch {
+    return trimmed;
+  }
 }
 
-function loadRaw() {
-  let raw;
-  try {
-    raw = JSON.parse(localStorage.getItem(STORE_KEY) ?? 'null');
-  } catch {
-    return null; /* corrupt storage */
+function normalizeNameSet(value) {
+  const out = new Set();
+  if (!Array.isArray(value)) return out;
+  for (const raw of value) {
+    const name = normalizeName(raw);
+    if (name) out.add(name);
   }
-  if (!raw || typeof raw !== 'object') return null;
-  if (raw.saveVersion !== SAVE_VERSION) return null; /* stale/unknown format */
-  return raw;
+  return out;
+}
+
+function normalizeSettings(value) {
+  const src = value && typeof value === 'object' ? value : {};
+  const out = {};
+  for (const key of Object.keys(DEFAULT_SETTINGS)) {
+    out[key] = typeof src[key] === typeof DEFAULT_SETTINGS[key] ? src[key] : DEFAULT_SETTINGS[key];
+  }
+  return out;
+}
+
+function safeStorage() {
+  try {
+    const s = window.localStorage;
+    const probe = '__gta6_probe__';
+    s.setItem(probe, '1');
+    s.removeItem(probe);
+    return s;
+  } catch {
+    return null;
+  }
+}
+
+function readBlob() {
+  const storage = safeStorage();
+  if (!storage) return null;
+  const raw = storage.getItem(STORE_KEY);
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') return null;
+    return parsed;
+  } catch {
+    return null;
+  }
 }
 
 export function hasSave() {
-  const raw = loadRaw();
-  return !!(raw && Array.isArray(raw.earned));
-}
-
-function sanitizeEarned(value) {
-  if (!Array.isArray(value)) return [];
-  return value.filter((id) => typeof id === 'string');
+  const blob = readBlob();
+  return !!(blob && Array.isArray(blob.earned) && blob.earned.length > 0);
 }
 
 export function createStore() {
-  const raw = loadRaw() ?? { earned: [], settings: {} };
-  const earned = new Set(sanitizeEarned(raw.earned));
-  const settings = { ...DEFAULT_SETTINGS, ...(raw.settings && typeof raw.settings === 'object' ? raw.settings : {}) };
+  const storage = safeStorage();
+  const blob = readBlob();
 
-  const persist = debounce(() => {
-    const data = { saveVersion: SAVE_VERSION, earned: [...earned], settings };
-    try {
-      localStorage.setItem(STORE_KEY, JSON.stringify(data));
-    } catch {
-      /* storage unavailable or full: keep in-memory state */
-    }
-    notify();
-  }, 200);
+  const earned = normalizeNameSet(blob && blob.earned);
+  const settings = normalizeSettings(blob && blob.settings);
+  const listeners = new Set();
 
-  let listeners = [];
   function notify() {
     for (const fn of listeners) {
-      try { fn(); } catch { /* ignore listener errors */ }
+      try {
+        fn();
+      } catch (err) {
+        console.error('store listener failed', err);
+      }
     }
   }
 
-  return {
-    isEarned(name) {
-      return earned.has(name);
-    },
-    earnedSize() {
-      return earned.size;
-    },
-    earnedList() {
-      return [...earned];
-    },
-    toggle(name) {
-      if (earned.has(name)) earned.delete(name);
-      else earned.add(name);
-      persist();
-    },
-    setEarned(name, value) {
-      if (value) earned.add(name);
-      else earned.delete(name);
-      persist();
-    },
-    reset() {
-      earned.clear();
-      persist();
-    },
-    getSetting(key) {
-      return settings[key];
-    },
-    setSetting(key, value) {
-      settings[key] = value;
-      persist();
-    },
-    subscribe(fn) {
-      listeners.push(fn);
-      return () => {
-        listeners = listeners.filter((l) => l !== fn);
-      };
-    },
-    exportJSON() {
-      return JSON.stringify({ earned: [...earned], settings }, null, 2);
-    },
-    importJSON(json) {
-      let data;
-      try {
-        data = JSON.parse(json);
-      } catch {
-        throw new Error('Invalid JSON file.');
+  /** Persist synchronously; surface quota/privacy failures once. */
+  function persist() {
+    if (!storage) {
+      notify();
+      return;
+    }
+    const payload = {
+      saveVersion: SAVE_VERSION,
+      earned: [...earned],
+      settings,
+    };
+    try {
+      storage.setItem(STORE_KEY, JSON.stringify(payload));
+    } catch (err) {
+      if (!persist.warned) {
+        persist.warned = true;
+        console.warn('Could not save progress to localStorage', err);
       }
-      if (!data || typeof data !== 'object') {
-        throw new Error('Invalid progress file format.');
-      }
-      earned.clear();
-      for (const id of sanitizeEarned(data.earned)) earned.add(id);
-      if (data.settings && typeof data.settings === 'object') {
-        Object.assign(settings, data.settings);
-      }
-      persist();
-    },
-    demo() {
-      const names = [
-        'Just Like Paradise',
-        'Paradise Lost',
-        'T**s Ass Drug Money',
-        'Vice City, Baby!',
-        'Top Of The World, Ma',
-        'Trust',
-        'Break the Bank',
-        'Family Matters',
-        'DWNFALL',
-        'Hi-Jacked',
-        'Snow Storm',
-        'You WAiNKer!',
-        'Positive Mental Attitude',
-        'Cunning Stunts',
-      ];
-      earned.clear();
-      for (const n of names) earned.add(n);
-      persist();
-    },
-  };
-}
-
-export function downloadProgress(store) {
-  const blob = new Blob([store.exportJSON()], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'gta6-trophies-progress.json';
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
-export async function importFromFile(file) {
-  return file.text();
-}
+    }
+    notify();
+  }
