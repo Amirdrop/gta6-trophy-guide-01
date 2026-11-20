@@ -1,9 +1,23 @@
+# Dependencies
 node_modules/
+
+# Build output
 out/
 dist/
-tmp/
-*.log
+build/
 
+# Logs
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# Local dev
+tmp/
+/tmp
+
+# OS / editor cruft
 .DS_Store
+Thumbs.db
 .idea/
+.vscode/
 *.iml

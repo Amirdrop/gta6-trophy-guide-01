@@ -65,8 +65,8 @@ export function renderDetailPlaceholder(ctx) {
   const ol = document.createElement('ol');
   const items = [
     'Track your progress by ticking the checkbox on each trophy card as you earn it.',
-    'Use the chips and search above to filter the checklist by kind, grade, or whether a trophy can be missed.',
-    'Turn on Spoiler mode to hide the names and descriptions of story trophies you haven\'t earned yet (earned trophies are always shown). Toggle it off anytime in Settings or via the Spoiler chip to reveal them.',
+    'Use the category, status, and grade chips, plus the sort and search boxes, to narrow the checklist.',
+    'Turn on Spoiler mode to hide the names and descriptions of story trophies you haven\'t earned yet (earned trophies are always shown). Toggle it off anytime in Settings, via the Spoiler chip, or with the S key.',
     'Export or import your progress file in Settings to back it up or move it between devices.',
   ];
   for (const it of items) {
@@ -104,6 +104,12 @@ function renderMeta(t) {
   }
   if (t.count) {
     metaP.appendChild(el('span', 'meta-item', t.count.target + ' ' + t.count.label));
+  }
+  if (t.points != null) {
+    metaP.appendChild(el('span', 'meta-item', t.points + ' pts'));
+  }
+  if (t.timeEstimate != null) {
+    metaP.appendChild(el('span', 'meta-item', '~' + t.timeEstimate + 'h'));
   }
   meta.appendChild(metaP);
   return meta;

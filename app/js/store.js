@@ -5,13 +5,23 @@ const DEFAULT_SETTINGS = {
   spoiler: false,
 };
 
-export function hasSave() {
-  try {
-    const raw = JSON.parse(localStorage.getItem(STORE_KEY) ?? 'null');
-    return !!(raw && typeof raw === 'object' && raw.saveVersion === SAVE_VERSION);
-  } catch {
-    return false;
-  }
+/**
+ * Deferred save helper. The first call writes through immediately so a quick
+ * toggle is never lost; rapid follow-ups are coalesced into one trailing
+ * write, keeping localStorage traffic low during bursts of toggles.
+ */
+function debounce(fn, wait) {
+  let timer = null;
+  let first = true;
+  return function () {
+    if (first) {
+      first = false;
+      fn();
+      return;
+    }
+    clearTimeout(timer);
+    timer = setTimeout(fn, wait);
+  };
 }
 
 function loadRaw() {
@@ -22,32 +32,36 @@ function loadRaw() {
     return null; /* corrupt storage */
   }
   if (!raw || typeof raw !== 'object') return null;
-  if (raw.saveVersion !== SAVE_VERSION) {
-    return null; /* unknown or stale save format: fall back to defaults */
-  }
-  if (!Array.isArray(raw.earned)) raw.earned = [];
-  raw.earned = raw.earned.filter((id) => typeof id === 'string');
-  if (!raw.settings || typeof raw.settings !== 'object') raw.settings = {};
+  if (raw.saveVersion !== SAVE_VERSION) return null; /* stale/unknown format */
   return raw;
 }
 
+export function hasSave() {
+  const raw = loadRaw();
+  return !!(raw && Array.isArray(raw.earned));
+}
+
+function sanitizeEarned(value) {
+  if (!Array.isArray(value)) return [];
+  return value.filter((id) => typeof id === 'string');
+}
+
 export function createStore() {
-  const raw = loadRaw() ?? { earned: [], settings: { ...DEFAULT_SETTINGS } };
-  const earned = new Set(Array.isArray(raw.earned) ? raw.earned : []);
-  const settings = { ...DEFAULT_SETTINGS, ...(raw.settings || {}) };
+  const raw = loadRaw() ?? { earned: [], settings: {} };
+  const earned = new Set(sanitizeEarned(raw.earned));
+  const settings = { ...DEFAULT_SETTINGS, ...(raw.settings && typeof raw.settings === 'object' ? raw.settings : {}) };
 
-  let listeners = [];
-
-  function persist() {
+  const persist = debounce(() => {
     const data = { saveVersion: SAVE_VERSION, earned: [...earned], settings };
     try {
       localStorage.setItem(STORE_KEY, JSON.stringify(data));
     } catch {
-      /* storage unavailable or full: keep in-memory state, degrade gracefully */
+      /* storage unavailable or full: keep in-memory state */
     }
     notify();
-  }
+  }, 200);
 
+  let listeners = [];
   function notify() {
     for (const fn of listeners) {
       try { fn(); } catch { /* ignore listener errors */ }
@@ -87,7 +101,9 @@ export function createStore() {
     },
     subscribe(fn) {
       listeners.push(fn);
-      return () => { listeners = listeners.filter((l) => l !== fn); };
+      return () => {
+        listeners = listeners.filter((l) => l !== fn);
+      };
     },
     exportJSON() {
       return JSON.stringify({ earned: [...earned], settings }, null, 2);
@@ -103,16 +119,13 @@ export function createStore() {
         throw new Error('Invalid progress file format.');
       }
       earned.clear();
-      if (Array.isArray(data.earned)) {
-        for (const id of data.earned) earned.add(String(id));
-      }
+      for (const id of sanitizeEarned(data.earned)) earned.add(id);
       if (data.settings && typeof data.settings === 'object') {
         Object.assign(settings, data.settings);
       }
       persist();
     },
     demo() {
-      earned.clear();
       const names = [
         'Just Like Paradise',
         'Paradise Lost',
@@ -129,6 +142,7 @@ export function createStore() {
         'Positive Mental Attitude',
         'Cunning Stunts',
       ];
+      earned.clear();
       for (const n of names) earned.add(n);
       persist();
     },
@@ -148,6 +162,5 @@ export function downloadProgress(store) {
 }
 
 export async function importFromFile(file) {
-  const text = await file.text();
-  return text;
+  return file.text();
 }

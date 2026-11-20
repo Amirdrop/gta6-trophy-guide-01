@@ -3,7 +3,7 @@ import { el } from '../util.js';
 export function renderMissables(ctx) {
   const wrap = el('section', 'view-pane');
   wrap.appendChild(el('h2', '', 'Missables'));
-  wrap.appendChild(el('p', 'missables-intro', 'Flags built from the official descriptions; treat each as missable until confirmed in-game.'));
+  wrap.appendChild(el('p', 'missables-intro', 'Flags built from the official descriptions; treat each as missable until confirmed in-game. Nail these while their quest is still live.'));
 
   const missables = ctx.trophies.filter((t) => t.missable);
   if (!missables.length) {
@@ -35,6 +35,8 @@ export function renderMissables(ctx) {
 
     for (const t of groups.get(key)) {
       const item = el('div', 'missable-card');
+      if (ctx.store.isEarned(t.name)) item.classList.add('earned');
+
       const head = el('div', 'missable-head');
       head.appendChild(el('span', 'grade-badge ' + t.grade, t.grade));
       const nameBtn = el('button', 'missable-name', t.name);
@@ -43,12 +45,17 @@ export function renderMissables(ctx) {
       head.appendChild(nameBtn);
       item.appendChild(head);
 
+      if (t.description) item.appendChild(el('p', 'trophy-desc clamp', t.description));
+
       if (t.missableNote) item.appendChild(el('p', 'missable-note', t.missableNote));
 
+      const row = el('div', 'missable-row');
+      if (ctx.store.isEarned(t.name)) row.appendChild(el('span', 'earn-chip', 'Earned'));
       const guide = el('button', 'guide-btn', 'Guide');
       guide.type = 'button';
       guide.addEventListener('click', () => ctx.onSelect(t));
-      item.appendChild(guide);
+      row.appendChild(guide);
+      item.appendChild(row);
 
       wrap.appendChild(item);
     }

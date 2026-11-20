@@ -2,18 +2,23 @@ import { el } from '../util.js';
 import { GRADES, countByGrade } from '../data.js';
 
 const TABS = [
-  { id: 'checklist', label: 'Checklist' },
-  { id: 'roadmap', label: 'Roadmap' },
-  { id: 'missables', label: 'Missables' },
-  { id: 'planner', label: 'Planner' },
-  { id: 'settings', label: 'Settings' },
+  { id: 'checklist', label: 'Checklist', key: '1' },
+  { id: 'roadmap', label: 'Roadmap', key: '2' },
+  { id: 'missables', label: 'Missables', key: '3' },
+  { id: 'planner', label: 'Planner', key: '4' },
+  { id: 'settings', label: 'Settings', key: '5' },
 ];
 
 export function renderShell(trophies, store, activeTab, onTab) {
   const header = el('header', 'site-header');
 
+  const titleRow = el('div', 'site-title-row');
   const title = el('h1', 'site-title', 'Leonida Ledger — GTA 6 Trophy Guide');
-  header.appendChild(title);
+  titleRow.appendChild(title);
+  const kbd = el('span', 'kbd-hint', '1-5 tabs · S spoiler');
+  kbd.title = 'Keyboard shortcuts';
+  titleRow.appendChild(kbd);
+  header.appendChild(titleRow);
 
   const sub = el('p', 'site-subtitle', 'An offline guide and tracker for every Grand Theft Auto VI trophy.');
   const srcs = el('p', 'site-sources', 'Sources: Exophase & PSNProfiles · guides are our own words from the official descriptions');
@@ -24,13 +29,19 @@ export function renderShell(trophies, store, activeTab, onTab) {
   for (const t of TABS) {
     const btn = el('button', '', t.label);
     btn.type = 'button';
-    btn.title = t.label;
+    btn.title = t.label + ' (press ' + t.key + ')';
     if (t.id === activeTab) btn.classList.add('active');
     btn.addEventListener('click', () => onTab(t.id));
     nav.appendChild(btn);
   }
   header.appendChild(nav);
 
+  header.appendChild(renderProgress(trophies, store));
+
+  return header;
+}
+
+function renderProgress(trophies, store) {
   const progress = el('section', 'progress-panel');
 
   const total = trophies.length || 1;
@@ -63,7 +74,5 @@ export function renderShell(trophies, store, activeTab, onTab) {
   }
   progress.appendChild(counters);
 
-  header.appendChild(progress);
-
-  return header;
+  return progress;
 }

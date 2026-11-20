@@ -1,19 +1,26 @@
-// A tiny static server for app/ (Node 22, standard library only), so the guide can be run locally without a
-// build step: `node serve.ts` serves app/ on http://localhost:8080 (`--port <n>` for another port). The PORT
-// environment variable also overrides the default 8080 (it yields to `--port` when both are given). It sends the MIME
-// types a browser needs, refuses any path outside app/, and otherwise does nothing clever: this is a development
-// convenience, not a web server for the internet.
+/**
+ * Leonida Ledger — alternative local static server.
+ *
+ * A minimal, standard-library-only static server for local development. It serves
+ * the app/ directory (the guide itself) plus the top-level screenshots/ folder
+ * under /screenshots/* so captured preview images are also viewable locally.
+ *
+ * This is the server to pair with scripts/shoot.mjs, whose default target is
+ * http://127.0.0.1:8377. Run it on that port (or point SHOT_BASE elsewhere):
+ *
+ *   node serve.ts --port 8377
+ *
+ * Port precedence: --port flag, then the PORT env var, then 8080.
+ */
 import { createReadStream, statSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { extname, join, normalize, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const root = resolve(fileURLToPath(new URL('./app', import.meta.url)));
-const args = process.argv.slice(2);
-const portIndex = args.indexOf('--port');
-const defaultPort = Number(process.env.PORT) || 8080;
-const requested = portIndex === -1 ? defaultPort : Number(args[portIndex + 1]);
-const port = Number.isInteger(requested) && requested > 0 && requested < 65536 ? requested : defaultPort;
+const APP = resolve(fileURLToPath(new URL('./app', import.meta.url)));
+const SHOTS = resolve(fileURLToPath(new URL('./screenshots', import.meta.url)));
+const HOST = '127.0.0.1';
+const DEFAULT_PORT = 8080;
 
 const MIME: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
@@ -21,46 +28,62 @@ const MIME: Record<string, string> = {
   '.mjs': 'text/javascript; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
   '.json': 'application/json; charset=utf-8',
-  '.svg': 'image/svg+xml',
-  '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
+  '.png': 'image/png',
+  '.svg': 'image/svg+xml',
   '.webp': 'image/webp',
   '.ico': 'image/x-icon',
-  '.woff2': 'font/woff2',
-  '.webmanifest': 'application/manifest+json',
 };
 
-createServer((request, response) => {
-  const url = new URL(request.url ?? '/', 'http://localhost');
+function resolvePort(): number {
+  const args = process.argv.slice(2);
+  const idx = args.indexOf('--port');
+  const fallback = Number(process.env.PORT) || DEFAULT_PORT;
+  const requested = idx === -1 ? fallback : Number(args[idx + 1]);
+  return Number.isInteger(requested) && requested > 0 && requested < 65536 ? requested : fallback;
+}
+
+const server = createServer((request, response) => {
   let pathname: string;
   try {
-    pathname = decodeURIComponent(url.pathname);
+    pathname = decodeURIComponent(new URL(request.url ?? '/', 'http://localhost').pathname);
   } catch {
     response.writeHead(400).end('bad request');
     return;
   }
-  if (pathname.endsWith('/')) pathname += 'index.html';
-  const file = resolve(join(root, normalize(pathname)));
-  if (file !== root && !file.startsWith(root + sep)) {
+
+  // /screenshots/* maps to the top-level screenshots/ dir; everything else into app/.
+  let base = APP;
+  let rel = pathname;
+  if (pathname === '/screenshots') {
+    base = SHOTS;
+    rel = '/';
+  } else if (pathname.startsWith('/screenshots/')) {
+    base = SHOTS;
+    rel = pathname.slice('/screenshots'.length);
+  }
+
+  if (rel === '/') rel = '/index.html';
+  else if (rel.endsWith('/')) rel += 'index.html';
+
+  const file = resolve(join(base, normalize(rel)));
+  if (file !== base && !file.startsWith(base + sep)) {
     response.writeHead(403).end('forbidden');
     return;
   }
-  let size: number;
+
   try {
     const stats = statSync(file);
     if (!stats.isFile()) throw new Error('not a file');
-    size = stats.size;
+    const type = MIME[extname(file).toLowerCase()] ?? 'application/octet-stream';
+    response.writeHead(200, { 'Content-Type': type, 'Content-Length': stats.size });
+    createReadStream(file).pipe(response);
   } catch {
     response.writeHead(404).end('not found');
-    return;
   }
-  response.writeHead(200, {
-    'content-type': MIME[extname(file).toLowerCase()] ?? 'application/octet-stream',
-    'content-length': size,
-    'cache-control': 'no-store',
-  });
-  createReadStream(file).pipe(response);
-}).listen(port, '127.0.0.1', () => {
-  console.log(`app/ is on http://localhost:${port}`);
+});
+
+server.listen(resolvePort(), HOST, () => {
+  console.log(`Leonida Ledger dev server: http://${HOST}:${resolvePort()} (app/ · screenshots under /screenshots/*)`);
 });

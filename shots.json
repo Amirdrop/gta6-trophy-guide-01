@@ -1,6 +1,22 @@
 [
-  { "file": "1-checklist-guide.jpg", "path": "/#checklist", "note": "Checklist with filters, seeded progress (13/55) and a trophy guide open with its sources", "viewport": { "width": 1280, "height": 800 } },
-  { "file": "2-roadmap.jpg", "path": "/#roadmap", "note": "Platinum roadmap, seven stages with progress bars and trophy chips", "viewport": { "width": 1280, "height": 800 } },
-  { "file": "3-missables.jpg", "path": "/#missables", "note": "Missable trophies with notes built from the official descriptions", "viewport": { "width": 1280, "height": 800 } },
-  { "file": "4-spoiler.jpg", "path": "/#checklist", "note": "Spoiler mode masking unearned story trophies, with a guide open beside it", "viewport": { "width": 1280, "height": 800 } }
+  {
+    "file": "1-checklist-guide.jpg",
+    "path": "/#checklist",
+    "note": "Checklist tab with seeded demo progress (13 of 55 earned): trophy cards with grade badges, difficulty dots and missable chips, the filter/search toolbar above, and a trophy guide panel open on the right showing its steps and sources."
+  },
+  {
+    "file": "2-roadmap.jpg",
+    "path": "/#roadmap",
+    "note": "Roadmap tab showing the six-stage platinum roadmap: each stage lists its trophy chips (missables bulleted) with earned counts, missable counts and a per-stage progress bar."
+  },
+  {
+    "file": "3-missables.jpg",
+    "path": "/#missables",
+    "note": "Missables tab listing the nine missable trophies grouped by stage, each card with its grade badge, description and the in-quest warning note to grab it before it slips away."
+  },
+  {
+    "file": "4-spoiler.jpg",
+    "path": "/#checklist",
+    "note": "Checklist tab with spoiler mode ON and a guide panel open: unearned story trophies are masked as 'Hidden — story spoiler' while earned and non-story trophies stay visible."
+  }
 ]

@@ -3,6 +3,7 @@ import { el } from '../util.js';
 export function renderRoadmap(ctx) {
   const wrap = el('section', 'view-pane');
   wrap.appendChild(el('h2', '', 'Roadmap'));
+  wrap.appendChild(el('p', 'missables-intro', 'A recommended order of play. Missable trophies are flagged with a bullet so you can nail them while their quest is still live.'));
 
   let stages;
   if (Array.isArray(ctx.roadmap) && ctx.roadmap.length) {
@@ -41,13 +42,11 @@ export function renderRoadmap(ctx) {
   for (const s of stages) {
     const card = el('div', 'stage');
     const head = el('div', 'stage-head');
-    if (s.stageNum != null) {
-      head.appendChild(el('h3', '', 'Stage ' + s.stageNum + ' of ' + stages.length + ' — ' + s.title));
-    } else {
-      head.appendChild(el('h3', '', s.title));
-    }
+    const h3 = el('h3', '', s.title);
+    head.appendChild(h3);
     const earned = s.trophies.filter((t) => ctx.store.isEarned(t.name)).length;
-    head.appendChild(el('span', 'stage-progress', earned + ' / ' + s.trophies.length + ' earned'));
+    const missables = s.trophies.filter((t) => t.missable).length;
+    head.appendChild(el('span', 'stage-progress', earned + ' / ' + s.trophies.length + ' earned' + (missables ? ' · ' + missables + ' missable' : '')));
     card.appendChild(head);
 
     const body = el('div', 'stage-body');
@@ -59,8 +58,9 @@ export function renderRoadmap(ctx) {
       chip.type = 'button';
       chip.classList.add('grade-' + t.grade);
       if (ctx.store.isEarned(t.name)) chip.classList.add('earned');
-      chip.textContent = t.name;
-      if (t.missable) chip.appendChild(el('span', 'missable-dot', '\u2022'));
+      if (t.missable) chip.classList.add('missable');
+      chip.textContent = (t.missable ? '• ' : '') + t.name;
+      chip.title = (t.missable ? 'Missable · ' : '') + (ctx.store.isEarned(t.name) ? 'Earned' : 'Not earned');
       chip.addEventListener('click', () => ctx.onSelect(t));
       chips.appendChild(chip);
     }

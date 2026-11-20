@@ -13,12 +13,20 @@ const KIND_LABELS = {
 };
 const NORMAL_KIND = 'normal';
 
+/** Suggested trophy points per grade when the payload omits them. */
+const DEFAULT_POINTS = { platinum: 180, gold: 90, silver: 30, bronze: 15 };
+/** Suggested rarity ranks (0..100) per grade when the payload omits them. */
+const DEFAULT_RARITY = { platinum: 5, gold: 40, silver: 65, bronze: 80 };
+
 export { GRADES, GRADE_ORDER, KINDS, KIND_LABELS, NORMAL_KIND };
 
 /**
- * Normalize a raw trophies payload into a sorted, validated array of
- * trophy records. Invalid entries are dropped; ordering is by stage
- * (platinum first) then id.
+ * Normalize a raw trophies payload into a sorted, validated array of trophy
+ * records. Invalid entries are dropped; ordering is by stage (platinum first)
+ * then id.
+ *
+ * Tolerates missing fields: only `name` (or a usable id) is required to keep a
+ * record. Every other field is validated and given a safe default when absent.
  *
  * @param {Array|Object} raw Raw trophies array, or an object with a
  *   `trophies` array.
@@ -35,37 +43,52 @@ export function normalizeTrophies(raw) {
     .sort((a, b) => (a.stage ?? 99) - (b.stage ?? 99) || a.id - b.id);
 }
 
+/**
+ * Validate and normalize a single raw trophy record. Returns `null` when the
+ * entry is unusable (not an object, or missing both a name and an id).
+ */
 export function normalizeOne(raw) {
   if (!raw || typeof raw !== 'object') return null;
 
-  const id = raw.id != null ? raw.id : fallbackId(raw);
+  const id = normalizeId(raw);
+  const name = typeof raw.name === 'string' && raw.name.trim()
+    ? raw.name.trim()
+    : fallbackName(raw);
+
   const grade = normalizeGrade(raw.grade);
-  const kind = normalizeKind(raw.kind, grade);
-  const missable = !!(raw.missable || raw.kind === 'missable');
+  const kind = normalizeKind(raw.kind ?? raw.category ?? raw.type, grade);
+  const missable = !!(raw.missable || raw.kind === 'missable' || raw.category === 'missable');
   const hidden = !!(raw.hidden);
   const stage = normalizeStage(raw.stage, grade);
 
-  const steps = normalizeSteps(raw.steps);
+  const rarity = normalizeRarity(raw.rarity, grade);
+  const timeEstimate = normalizeTime(raw.timeEstimate ?? raw.estimatedTime);
+  const points = normalizePoints(raw.points ?? raw.trophyPoints, grade);
+
+  const steps = normalizeSteps(raw.steps ?? raw.guideSteps);
   const sources = normalizeSources(raw.sources);
   const count = normalizeCount(raw.count);
   const difficulty = normalizeDifficulty(raw.difficulty);
 
   return {
     id,
-    name: raw.name || 'Untitled Trophy',
-    description: raw.description || '',
-    guide: raw.guide || '',
+    name,
+    description: typeof raw.description === 'string' ? raw.description : '',
+    guide: typeof raw.guide === 'string' ? raw.guide : '',
     grade,
     kind,
-    missable,
+    rarity,
     hidden,
+    missable,
     stage,
     steps,
     sources,
-    source_note: raw.source_note || raw.sourceNote || null,
+    source_note: raw.source_note ?? raw.sourceNote ?? null,
     count,
     difficulty,
-    missableNote: raw.missableNote || raw.missable_note || null,
+    timeEstimate,
+    points,
+    missableNote: raw.missableNote ?? raw.missable_note ?? null,
     guideSteps: steps,
   };
 }
@@ -88,18 +111,51 @@ export function normalizeKind(kind, grade) {
 }
 
 export function normalizeStage(stage, grade) {
-  if (typeof stage === 'number') return stage;
+  if (typeof stage === 'number' && Number.isFinite(stage)) return Math.max(0, Math.round(stage));
   if (typeof stage === 'string') {
     const n = parseInt(stage, 10);
-    if (!Number.isNaN(n)) return n;
+    if (!Number.isNaN(n)) return Math.max(0, n);
   }
   if (grade === 'platinum') return 0;
   return null;
 }
 
+function normalizeRarity(rarity, grade) {
+  if (typeof rarity === 'number' && Number.isFinite(rarity)) {
+    return Math.max(0, Math.min(100, Math.round(rarity)));
+  }
+  if (typeof rarity === 'string') {
+    const n = parseFloat(rarity);
+    if (!Number.isNaN(n)) return Math.max(0, Math.min(100, Math.round(n)));
+  }
+  return DEFAULT_RARITY[grade] ?? 50;
+}
+
+function normalizeTime(time) {
+  if (typeof time === 'number' && Number.isFinite(time) && time > 0) {
+    return Math.round(time * 10) / 10;
+  }
+  if (typeof time === 'string') {
+    const n = parseFloat(time);
+    if (!Number.isNaN(n) && n > 0) return Math.round(n * 10) / 10;
+  }
+  return null;
+}
+
+function normalizePoints(points, grade) {
+  if (typeof points === 'number' && Number.isFinite(points) && points >= 0) {
+    return Math.round(points);
+  }
+  if (typeof points === 'string') {
+    const n = parseInt(points, 10);
+    if (!Number.isNaN(n) && n >= 0) return n;
+  }
+  return DEFAULT_POINTS[grade] ?? 0;
+}
+
 function normalizeSteps(steps) {
   if (Array.isArray(steps)) return steps.filter((s) => s && typeof s === 'string');
-  if (typeof steps === 'string') return [steps];
+  if (typeof steps === 'string' && steps.trim()) return [steps.trim()];
   return null;
 }
 
@@ -150,11 +206,24 @@ export function countTarget(count) {
   return count.target || null;
 }
 
-function fallbackId(raw) {
-  const base = (raw.name || '') + (raw.description || '');
+function normalizeId(raw) {
+  if (raw.id != null) {
+    const n = Number(raw.id);
+    if (Number.isFinite(n)) return n;
+    const s = String(raw.id);
+    if (s.trim()) return s;
+  }
+  const base = String(raw.name ?? '') + String(raw.description ?? '');
   let h = 0;
   for (let i = 0; i < base.length; i++) h = (h * 31 + base.charCodeAt(i)) >>> 0;
-  return h;
+  return h || 'untitled';
+}
+
+function fallbackName(raw) {
+  if (typeof raw.description === 'string' && raw.description.trim()) {
+    return raw.description.trim().slice(0, 80) || 'Untitled Trophy';
+  }
+  return 'Untitled Trophy';
 }
 
 export function countByGrade(list, grade) {

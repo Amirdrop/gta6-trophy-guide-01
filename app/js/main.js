@@ -12,27 +12,36 @@ import { renderSettings } from './views/settings.js';
 const TABS = ['checklist', 'roadmap', 'missables', 'planner', 'settings'];
 const TAB_DIGITS = { '1': 'checklist', '2': 'roadmap', '3': 'missables', '4': 'planner', '5': 'settings' };
 
+function hashTab() {
+  const h = location.hash.replace('#', '');
+  return TABS.includes(h) ? h : 'checklist';
+}
+
+async function fetchJSON(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('Failed to load ' + url);
+  return res.json();
+}
+
 async function boot() {
   const store = createStore();
 
-  let rawTrophies = [];
+  let trophies = [];
   let roadmap = null;
   try {
-    const res = await fetch('./data/trophies.json');
-    const data = await res.json();
-    rawTrophies = data.trophies || data;
+    const data = await fetchJSON('./data/trophies.json');
+    trophies = normalizeTrophies(data.trophies || data);
   } catch (e) {
     console.error('Failed to load trophies', e);
+    trophies = [];
   }
 
   try {
-    const res = await fetch('./data/roadmap.json');
-    if (res.ok) roadmap = await res.json();
+    roadmap = await fetchJSON('./data/roadmap.json');
   } catch (e) {
+    console.error('Failed to load roadmap', e);
     roadmap = null;
   }
-
-  const trophies = normalizeTrophies(rawTrophies);
 
   const state = {
     trophies,
@@ -40,22 +49,37 @@ async function boot() {
     filters: createFilters(),
     spoiler: !!store.getSetting('spoiler'),
     selected: null,
-    // Default to the checklist tab when no valid hash is present in the URL.
-    tab: TABS.includes(location.hash.replace('#', '')) ? location.hash.replace('#', '') : 'checklist',
+    tab: hashTab(),
   };
 
   const root = document.getElementById('app');
   const shellEl = document.createElement('div');
   shellEl.className = 'app';
-  root.appendChild(shellEl);
+  root.appendChild(shellEl     );
+
   const viewHost = document.createElement('div');
   viewHost.className = 'view-host';
   shellEl.appendChild(viewHost);
 
+  function activeTab() {
+    return TABS.includes(state.tab) ? state.tab : 'checklist';
+  }
+
+  function renderTab(active, ctx) {
+    switch (active) {
+      case 'roadmap': return renderRoadmap(ctx);
+      case 'missables': return renderMissables(ctx);
+      case 'planner': return renderPlanner(ctx);
+      case 'settings': return renderSettings(ctx);
+      default: return renderChecklist(ctx);
+    }
+  }
+
   function render() {
-    shellEl.innerHTML = '';
-    const active = TABS.includes(state.tab) ? state.tab : 'checklist';
-    shellEl.appendChild(renderShell(trophies, store, active, (tab) => {
+    const active = activeTab();
+
+    viewHost.innerHTML = '';
+    viewHost.appendChild(renderShell(state.trophies, store, active, (tab) => {
       state.tab = tab;
       location.hash = '#' + tab;
       render();
@@ -65,8 +89,8 @@ async function boot() {
     main.className = 'main-layout';
 
     const ctx = {
-      trophies,
-      roadmap,
+      trophies: state.trophies,
+      roadmap: state.roadmap,
       filters: state.filters,
       store,
       spoiler: state.spoiler,
@@ -104,27 +128,21 @@ async function boot() {
       document.body.setAttribute('data-render-error', e.message);
     }
 
-    shellEl.appendChild(main);
-  }
-
-  function renderTab(active, ctx) {
-    switch (active) {
-      case 'roadmap': return renderRoadmap(ctx);
-      case 'missables': return renderMissables(ctx);
-      case 'planner': return renderPlanner(ctx);
-      case 'settings': return renderSettings(ctx);
-      default: return renderChecklist(ctx);
-    }
+    viewHost.appendChild(main);
   }
 
   window.addEventListener('hashchange', () => {
     const h = location.hash.replace('#', '');
-    if (TABS.includes(h)) { state.tab = h; state.selected = null; render(); }
+    if (TABS.includes(h)) {
+      state.tab = h;
+      state.selected = null;
+      render();
+    }
   });
 
   document.addEventListener('keydown', (e) => {
+    const typing = e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable);
     if (e.key === '/') {
-      // Focus the global search box so the user can start typing anywhere.
       e.preventDefault();
       const input = document.querySelector('.search-box');
       if (input) input.focus();
@@ -133,6 +151,12 @@ async function boot() {
     if (TAB_DIGITS[e.key]) {
       state.tab = TAB_DIGITS[e.key];
       location.hash = '#' + state.tab;
+      render();
+      return;
+    }
+    if (!typing && (e.key === 's' || e.key === 'S')) {
+      state.spoiler = !state.spoiler;
+      store.setSetting('spoiler', state.spoiler);
       render();
       return;
     }

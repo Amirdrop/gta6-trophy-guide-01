@@ -11,7 +11,7 @@ export function renderSettings(ctx) {
   const label = el('label', 'settings-label', 'Hide story trophy names and descriptions');
   label.htmlFor = 'spoiler-toggle';
   label.appendChild(el('p', 'settings-hint', 'Masks the name and description of any trophy that reveals story, mission, or plot details.'));
-  label.appendChild(el('p', 'settings-hint', 'Earned trophies are always revealed.'));
+  label.appendChild(el('p', 'settings-hint', 'Earned trophies are always revealed. Toggle anytime with the S key.'));
   spoilerRow.appendChild(label);
   const sbox = document.createElement('input');
   sbox.id = 'spoiler-toggle';

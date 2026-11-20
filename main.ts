@@ -1,92 +1,94 @@
-import { cpSync, existsSync, mkdirSync, readdirSync, statSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+/**
+ * Leonida Ledger — local static server.
+ *
+ * Serves the GTA 6 trophy guide app/ directory over HTTP so the module
+ * scripts and JSON data load correctly from the browser. Uses only the
+ * Node standard library; no build step or dependencies required.
+ *
+ *   node main.ts                 # serves app/ on http://localhost:8080
+ *   node main.ts --port 9000     # override the port
+ *   PORT=9000 node main.ts       # or use the PORT env var (yields to --port)
+ */
+import { createReadStream, statSync } from 'node:fs';
+import { createServer } from 'node:http';
+import { extname, join, normalize, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildDossier } from './vendor/makefun-frontend.ts';
 
-const APP_VERSION = '1.1';
+const ROOT = resolve(fileURLToPath(new URL('./app', import.meta.url)));
+const SHOTS = resolve(fileURLToPath(new URL('./screenshots', import.meta.url)));
+const HOST = '127.0.0.1';
+const DEFAULT_PORT = 8080;
 
-// Packaging step for the make.fun build: this validates the app/ tree against hard
-// size limits, copies it (plus any screenshots) into the output directory, and emits
-// a dossier.json so the runtime can present the guide. It is not run in the browser.
-const here = fileURLToPath(new URL('.', import.meta.url));
-const out = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
+const MIME: Record<string, string> = {
+  '.html': 'text/html; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.mjs': 'text/javascript; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
+  '.json': 'application/json; charset=utf-8',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.png': 'image/png',
+  '.svg': 'image/svg+xml',
+  '.webp': 'image/webp',
+  '.ico': 'image/x-icon',
+  '.woff2': 'font/woff2',
+};
 
-const SCREENSHOT_MAX = 4;
-const SCREENSHOT_MAX_BYTES = 262144;
-const APP_MAX_FILES = 993;
-const APP_MAX_BYTES = 50331648;
-const INDEX_MAX_BYTES = 1 << 20;
+function resolvePort(): number {
+  const args = process.argv.slice(2);
+  const idx = args.indexOf('--port');
+  const fallback = Number(process.env.PORT) || DEFAULT_PORT;
+  const requested = idx === -1 ? fallback : Number(args[idx + 1]);
+  return Number.isInteger(requested) && requested > 0 && requested < 65536 ? requested : fallback;
+}
 
-function walk(dir: string): { files: string[]; dirs: string[] } {
-  const files: string[] = [];
-  const dirs: string[] = [];
-  for (const name of readdirSync(dir)) {
-    if (name.startsWith('.')) continue;
-    const p = join(dir, name);
-    const st = statSync(p);
-    if (st.isDirectory()) {
-      dirs.push(p);
-      const sub = walk(p);
-      dirs.push(...sub.dirs);
-      files.push(...sub.files);
-    } else {
-      files.push(p);
-    }
+function sendFile(file: string, response: import('node:http').ServerResponse): void {
+  const type = MIME[extname(file).toLowerCase()] ?? 'application/octet-stream';
+  response.writeHead(200, { 'Content-Type': type, 'Content-Length': statSync(file).size });
+  createReadStream(file).pipe(response);
+}
+
+const server = createServer((request, response) => {
+  const url = new URL(request.url ?? '/', 'http://localhost');
+  let pathname: string;
+  try {
+    pathname = decodeURIComponent(url.pathname);
+  } catch {
+    response.writeHead(400).end('bad request');
+    return;
   }
-  return { files, dirs };
-}
 
-function fail(msg: string): never {
-  console.error(`main.ts: ${msg}`);
-  process.exit(1);
-}
-
-const appHere = join(here, 'app');
-if (!existsSync(appHere)) fail('no app/ directory beside this file');
-
-const appTree = walk(appHere);
-const appEntries = appTree.files.length + appTree.dirs.length;
-if (appEntries > APP_MAX_FILES) fail(`app/ has ${appEntries} files and directories, over the cap of ${APP_MAX_FILES}`);
-
-let appBytes = 0;
-for (const f of appTree.files) {
-  const st = statSync(f);
-  if (st.size > 0) appBytes += st.size;
-}
-if (appBytes > APP_MAX_BYTES) fail(`app/ is ${appBytes} bytes, over the cap of ${APP_MAX_BYTES}`);
-
-const indexPath = join(appHere, 'index.html');
-if (!existsSync(indexPath)) fail('app/index.html is missing');
-if (statSync(indexPath).size > INDEX_MAX_BYTES) fail(`app/index.html is ${statSync(indexPath).size} bytes, over the cap of ${INDEX_MAX_BYTES}`);
-
-const shotsHere = join(here, 'screenshots');
-let shotBytes = 0;
-if (existsSync(shotsHere)) {
-  const shots = readdirSync(shotsHere).filter((n) => !n.startsWith('.'));
-  if (shots.length > SCREENSHOT_MAX) fail(`${shots.length} screenshots found, over the cap of ${SCREENSHOT_MAX}`);
-  for (const s of shots) {
-    const b = statSync(join(shotsHere, s)).size;
-    if (b > SCREENSHOT_MAX_BYTES) fail(`screenshot ${s} is ${b} bytes, over the cap of ${SCREENSHOT_MAX_BYTES}`);
-    shotBytes += b;
+  // /screenshots/* maps to the top-level screenshots/ dir; everything else into app/.
+  let base = ROOT;
+  let rel = pathname;
+  if (pathname === '/screenshots') {
+    base = SHOTS;
+    rel = '/';
+  } else if (pathname.startsWith('/screenshots/')) {
+    base = SHOTS;
+    rel = pathname.slice('/screenshots'.length);
   }
-}
 
-mkdirSync(out, { recursive: true });
-cpSync(appHere, join(out, 'app'), { recursive: true });
-if (existsSync(shotsHere)) cpSync(shotsHere, join(out, 'screenshots'), { recursive: true });
+  if (rel === '/') rel = '/index.html';
+  else if (rel.endsWith('/')) rel += 'index.html';
 
-const dossier = buildDossier(out, {
-  text_max_bytes: 163840,
-  screenshots: { max: SCREENSHOT_MAX, max_bytes: SCREENSHOT_MAX_BYTES },
-  app_max_files: APP_MAX_FILES,
-  app_max_bytes: APP_MAX_BYTES,
+  const file = resolve(join(base, normalize(rel)));
+  if (file !== base && !file.startsWith(base + sep)) {
+    response.writeHead(403).end('forbidden');
+    return;
+  }
+
+  try {
+    const stats = statSync(file);
+    if (!stats.isFile()) throw new Error('not a file');
+    sendFile(file, response);
+  } catch {
+    response.writeHead(404).end('not found');
+  }
 });
-writeFileSync(join(out, 'dossier.json'), dossier);
 
-console.log(`copied ${appTree.files.length} files (${appBytes} bytes app) and ${existsSync(shotsHere) ? readdirSync(shotsHere).filter((n) => !n.startsWith('.')).length : 0} screenshots (${shotBytes} bytes) to ${out}`);
-if (existsSync(shotsHere)) {
-  for (const s of readdirSync(shotsHere).filter((n) => !n.startsWith('.')).sort()) {
-    console.log(`screenshot ${s} ${statSync(join(shotsHere, s)).size} bytes`);
-  }
-}
-console.log(`dossier.json: ${dossier.byteLength} bytes`);
+server.listen(resolvePort(), HOST, () => {
+  const address = server.address();
+  const port = typeof address === 'object' && address ? address.port : resolvePort();
+  console.log(`Leonida Ledger serving app/ at http://${HOST}:${port}`);
+});
