@@ -1,5 +1,8 @@
 # Leonida Ledger - GTA 6 Trophy Guide
 
+[![make.fun · gta6-trophy-guide-01](https://make.fun/badge/gta6-trophy-guide-01.svg)](https://make.fun/bounty/gta6-trophy-guide-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01)
+[![rank](https://make.fun/badge/gta6-trophy-guide-01/Amirdrop/gta6-trophy-guide-01/rank.svg)](https://make.fun/bounty/gta6-trophy-guide-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01)
+[![reward](https://make.fun/badge/gta6-trophy-guide-01/Amirdrop/gta6-trophy-guide-01/reward.svg)](https://make.fun/bounty/gta6-trophy-guide-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01)
 An offline, browser-based guide and tracker for every trophy in *Grand Theft Auto VI*.
 It covers all **55 trophies** (1 platinum, 2 gold, 6 silver, 46 bronze) with a
 structured platinum roadmap, missable warnings, difficulty and time estimates,
