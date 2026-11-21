@@ -2,21 +2,26 @@
   {
     "file": "1-checklist-guide.jpg",
     "path": "/#checklist",
-    "note": "Checklist tab with seeded demo progress (13 of 55 earned): trophy cards with grade badges, difficulty dots and missable chips, the filter/search toolbar above, and a trophy guide panel open on the right showing its steps and sources."
+    "note": "Checklist tab with seeded demo progress (13 of 55 earned): trophy cards with grade badges, difficulty dots, category, stage and tag chips, a favorites star on every card, the difficulty filter chips, the missable banner above, the filter/search toolbar, and a trophy guide panel open on the right showing its difficulty, time estimate, unlock steps and sources."
   },
   {
     "file": "2-roadmap.jpg",
     "path": "/#roadmap",
-    "note": "Roadmap tab showing the six-stage platinum roadmap: each stage lists its trophy chips (missables bulleted) with earned counts, missable counts and a per-stage progress bar."
+    "note": "Roadmap tab showing the six-stage platinum roadmap as a connected track: each stage has a numbered marker, its hours, difficulty, earned and missable counts, a progress bar, focus tips and warnings, plus a tickable checklist of its trophies."
   },
   {
     "file": "3-missables.jpg",
     "path": "/#missables",
-    "note": "Missables tab listing the nine missable trophies grouped by stage, each card with its grade badge, description and the in-quest warning note to grab it before it slips away."
+    "note": "Missables tab listing the nine missable trophies grouped by stage, with a secured-progress bar. Each card has its grade badge, description, the missable window note, and a one-click Mark earned button."
   },
   {
     "file": "4-spoiler.jpg",
     "path": "/#checklist",
-    "note": "Checklist tab with spoiler mode ON and a guide panel open: unearned story trophies are masked as 'Hidden — story spoiler' while earned and non-story trophies stay visible."
+    "note": "Checklist tab with spoiler mode ON: unearned story trophies are masked as 'Hidden story trophy' with a per-card Reveal action, while earned and non-story trophies stay visible. The header pill reads Spoilers hidden and the results line shows how many trophies are hidden."
+  },
+  {
+    "file": "5-planner.jpg",
+    "path": "/#planner",
+    "note": "Planner tab: a header of remaining trophies, stages, missables and estimated time, then remaining trophies grouped into roadmap sessions (tag chips and one-click earn checkboxes), with a ? help button in the site header."
   }
 ]

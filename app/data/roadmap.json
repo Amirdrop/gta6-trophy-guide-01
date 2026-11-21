@@ -4,22 +4,39 @@
     "platform": "PlayStation 5",
     "target": "Platinum",
     "stageCount": 6,
-    "estimatedTotal": "60-90 hrs"
+    "estimatedTotal": "60-90 hrs",
+    "name": "Leonida Ledger platinum roadmap",
+    "order": "Story Completion -> Collectibles & World -> Strangers & Side Content -> Activities & Shared Economy -> Crime & Combat Cleanup -> Platinum Run",
+    "sessions": "Each stage also tags its trophies with a planner session so the Planner tab can group next-up work into focused play blocks."
   },
   "stages": [
     {
       "id": "story",
+      "order": 1,
       "stage": 1,
       "title": "Story Completion",
       "subtitle": "Finish the Leonida campaign",
-      "blurb": "Play the main campaign from Gone Fishing through the final credits left to right. Every story trophy here unlocks automatically as the chapters roll by, so there is no grinding or collectible hunting yet. Go in loose and enjoy it — this is the only stage where you can freely free-roam and form your own route.",
+      "description": "Play the main campaign from Gone Fishing through the final credits left to right. Every story and mission trophy here unlocks automatically as the chapters roll by, so there is no grinding or collectible hunting yet. Go in loose and enjoy it: this is the only stage where you can freely free-roam and form your own route.",
+      "goals": [
+        "Finish every main mission, from Gone Fishing to the final credits",
+        "Bank all 7 story trophies and all 5 heist-mission trophies",
+        "Keep the run clean so 100% completion stays easy to chase later"
+      ],
       "estimatedHours": "30-45 hrs",
       "missable": false,
       "focus": [
         "Follow the main story missions only; side content waits until later stages.",
-        "Story, chapter and final-mission trophies (Just Like Paradise → You Gotta Know When to Get Off) pop automatically.",
-        "If a story mission offers a named alternative objective, do it the first time — several feed later crime trophies.",
-        "Mission trophies (Break the Bank → Snow Storm) unlock from the story heist missions."
+        "Story, chapter and mission trophies pop automatically as you progress.",
+        "If a story mission offers a named alternative objective, do it the first time: several feed later crime trophies."
+      ],
+      "tips": [
+        "Play naturally: every trophy here fires from finishing a mission, not from optional objectives.",
+        "Watch for the three missable world trophies that share this stage and grab them the moment they appear.",
+        "Do not skip cutscenes on your first playthrough if you are following the story blind; trophy names are hidden until earned."
+      ],
+      "warnings": [
+        "Do not skip cutscenes on your first playthrough if you are following the story blind; trophy names stay hidden until earned.",
+        "Several later missables share story-adjacent set pieces, so a natural first run keeps your options open."
       ],
       "trophies": [
         2,
@@ -34,20 +51,37 @@
         11,
         12,
         13
-      ]
+      ],
+      "difficultyRating": 3,
+      "difficulty": "Moderate"
     },
     {
       "id": "world",
+      "order": 2,
       "stage": 2,
       "title": "Collectibles & World",
       "subtitle": "Sweep every region of Leonida",
-      "blurb": "Once the story opens up the full map, tour the state region by region and sweep every activity and collectible in one organised trip: meditation spots, collectible card sets, WAiNK locations, the vehicle codex, all 52 areas of Leonida, the garage properties and vehicle registration. Backtracking the map is the single biggest time sink, so avoid it.",
+      "description": "Once the story opens up the full map, tour the state region by region and sweep every activity and collectible in one organised trip: meditation spots, collectible card sets, WAiNK locations, the vehicle codex, all areas of Leonida, garage properties and vehicle registration. Backtracking the map is the single biggest time sink, so avoid it.",
+      "goals": [
+        "Set foot in all 52 areas of Leonida",
+        "Sweep meditation spots, card sets, WAiNK locations and vehicle discovery",
+        "Own all 8 garages and register 10 vehicles in the Scooter Bros app"
+      ],
       "estimatedHours": "12-18 hrs",
+      "prerequisite": "story",
       "missable": false,
       "focus": [
         "Sweep region by region instead of hopping around the map.",
         "Meditation, card sets, WAiNK and vehicle discovery all count toward 100%, so do them together.",
-        "Buy all 8 garage properties before your vehicle registration spree."
+        "Buy all garage properties before your vehicle registration spree."
+      ],
+      "tips": [
+        "Unlock all garage properties before you start the vehicle registration spree.",
+        "Use a region checklist: north to south, then coast to coast, so you never double back.",
+        "Collectible card sets and WAiNK tracks can be finished in quiet free-roam evenings."
+      ],
+      "warnings": [
+        "Do not sell or lose a registered vehicle before the counter updates."
       ],
       "trophies": [
         28,
@@ -57,20 +91,38 @@
         42,
         54,
         55
-      ]
+      ],
+      "difficultyRating": 2,
+      "difficulty": "Easy"
     },
     {
       "id": "side",
+      "order": 3,
       "stage": 3,
       "title": "Strangers & Side Content",
       "subtitle": "Help the locals before they vanish",
-      "blurb": "Stranger strands and fishing challenges dry up as the story advances, so clear every named stranger you meet while they are still on the map. Do all the Strangers & Freaks strands to their final mission, beat the fishing challenge, and finish an arcade game for Stick Fiddler.",
+      "description": "Stranger strands and fishing challenges dry up as the story advances, so clear every named stranger you meet while they are still on the map. Do all the Strangers & Freaks strands to their final mission, beat the fishing challenge, and finish an arcade game for Stick Fiddler.",
+      "goals": [
+        "Run every stranger strand to its final mission",
+        "Beat Cal's fishing challenge and clear an arcade game",
+        "Bank the 8-strand Strangers & Freaks silver"
+      ],
       "estimatedHours": "8-12 hrs",
+      "prerequisite": "world",
       "missable": true,
       "focus": [
-        "Complete each stranger's full strand to its last mission — partial arcs are lost after the credits.",
+        "Complete each stranger's full strand to its last mission: partial arcs are lost after the credits.",
         "Do the stranger and side content trophies while the missions are still live.",
         "Baited My Tackle and Stick Fiddler are both easy to overlook late."
+      ],
+      "tips": [
+        "Finish each stranger strand to its final mission; partial arcs vanish after the credits.",
+        "Fish and play the arcade between missions rather than saving them for a single grind session.",
+        "Screenshot the map markers you have cleared to avoid revisiting."
+      ],
+      "warnings": [
+        "Stranger strands and side challenges dry up as the story advances.",
+        "Baited My Tackle and Stick Fiddler are easy to overlook late."
       ],
       "trophies": [
         20,
@@ -82,20 +134,37 @@
         26,
         27,
         29
-      ]
+      ],
+      "difficultyRating": 3,
+      "difficulty": "Moderate"
     },
     {
       "id": "activities",
+      "order": 4,
       "stage": 4,
       "title": "Activities & Shared Economy",
       "subtitle": "Grind activities alongside normal play",
-      "blurb": "Grind the repeatable activities while you free-roam rather than saving them for a final push: stunts, every activity type, gold shooting ranges, drone races and races. Then let the shared-economy trophies — laundering Marked Bills and spending in shops — build up naturally through the single-player and online economy.",
+      "description": "Grind the repeatable activities while you free-roam rather than saving them for a final push: stunts, every activity type, gold shooting ranges, drone races and races. Then let the shared-economy trophies, laundering Marked Bills and spending in shops, build up naturally through the single-player and online economy.",
+      "goals": [
+        "Bank 250 stunts and gold all 42 shooting range challenges",
+        "Win every Top Fun drone race and 20 distinct races",
+        "Launder $250,000 of Marked Bills and spend $100,000 in shops"
+      ],
       "estimatedHours": "10-15 hrs",
+      "prerequisite": "side",
       "missable": false,
       "focus": [
-        "Cunning Stunts (with Gold adds for 250 stunts) is the longest grind — chip away at it constantly.",
-        "Gold all 42 Shooting Range challenges, not just silver.",
+        "Cunning Stunts is the longest grind: chip away at it constantly.",
+        "Gold all the Shooting Range challenges, not just silver.",
         "Treat Yo Self and Dime on the Dollar tick up from normal spending; no dedicated grind needed."
+      ],
+      "tips": [
+        "Cunning Stunts is the longest grind: chip away between every other activity.",
+        "Laundering Marked Bills and shop spending build from normal play; no dedicated grind needed.",
+        "Alternate stunts with races and drones so a single activity never gets stale."
+      ],
+      "warnings": [
+        "Activities can pause during certain late-story lockdowns."
       ],
       "trophies": [
         15,
@@ -106,58 +175,95 @@
         32,
         52,
         53
-      ]
+      ],
+      "difficultyRating": 3,
+      "difficulty": "Moderate"
     },
     {
       "id": "crime",
+      "order": 5,
       "stage": 5,
       "title": "Crime & Combat Cleanup",
       "subtitle": "Heists, gangs and combat",
-      "blurb": "Clean up the crime and combat trophies. Most are repeatable, but a handful are missable — grab those early and carefully before the cops clamp down. Then keep the counts ticking over: Combat Focus takedowns, the tank fight, a stealth jewelry heist, five bank vaults, an armored truck and all nine gang operations.",
+      "description": "Clean up the crime and combat trophies. Most are repeatable, but a handful are completely missable: grab those early and carefully before the cops clamp down. Then keep the counts ticking over: Combat Focus takedowns, the tank fight, a stealth jewellery heist, five bank vaults, an armoured truck and every gang operation.",
+      "goals": [
+        "Secure all 9 missable crime trophies while their set pieces are live",
+        "Rob 5 bank vaults, a jewelry store in stealth and an armored truck",
+        "Clear the Rhino tank fight and one illegal operation per gang"
+      ],
       "estimatedHours": "12-18 hrs",
+      "prerequisite": "activities",
       "missable": true,
       "focus": [
-        "Do every missable trophy first — they can slip away if you are careless.",
-        "Rob five bank vaults, one by one and escape each time.",
-        "The stealth jewelry heist is unforgiving: stay unseen for the whole job."
+        "Do every missable crime trophy first; they can slip away if you are careless.",
+        "Rob five bank vaults one at a time and escape cleanly after each.",
+        "The stealth jewellery heist is unforgiving: stay unseen for the whole job."
+      ],
+      "tips": [
+        "Do every missable crime trophy first; they can slip away later if you are careless.",
+        "Rob five bank vaults one at a time and escape cleanly after each.",
+        "The stealth jewellery heist is unforgiving: stay unseen for the whole job."
+      ],
+      "warnings": [
+        "Personal Best, Bad Luck, I Guess and The Truth Is Out There sit inside one-time encounters.",
+        "Hot Together and Retail Therapy require very specific store interactions, so set them up deliberately."
       ],
       "trophies": [
         33,
         34,
-        37,
-        44,
-        45,
-        46,
-        47,
-        49,
-        50,
         36,
+        37,
         38,
         39,
         40,
         41,
         43,
-        51,
-        48
-      ]
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "difficultyRating": 4,
+      "difficulty": "Hard"
     },
     {
       "id": "platinum",
+      "order": 6,
       "stage": 6,
       "title": "Platinum Run",
       "subtitle": "100% completion and the last gold",
-      "blurb": "Finish the clean-up run for 100% completion (A Long Road), confirm no trophy was missed, and the platinum unlocks once the rest of the list is complete. Save Vice Got a Price! for the very end — there is nothing special to do beyond holding every other trophy.",
+      "description": "Finish the clean-up run for 100% completion (A Long Road), confirm no trophy was missed, and the platinum unlocks once the rest of the list is complete. Save Vice Got a Price! for the very end: there is nothing special to do beyond holding every other trophy.",
+      "goals": [
+        "Reach 100% completion for A Long Road",
+        "Sweep the checklist to confirm all 54 other trophies are earned",
+        "Bank Vice Got a Price! - it pops automatically at the end"
+      ],
       "estimatedHours": "80-100 hrs total",
+      "prerequisite": "crime",
       "missable": false,
       "focus": [
         "Reach 100% completion for A Long Road.",
         "Sweep the checklist for any unearned trophy before you claim the platinum.",
         "Vice Got a Price! pops last, automatically."
       ],
+      "tips": [
+        "Reach 100% completion for A Long Road.",
+        "Sweep the checklist for any unearned trophy before claiming the platinum.",
+        "Vice Got a Price! pops last, automatically."
+      ],
+      "warnings": [
+        "The platinum cannot be forced; it only unlocks after the other 54 are earned."
+      ],
       "trophies": [
         14,
         1
-      ]
+      ],
+      "difficultyRating": 5,
+      "difficulty": "Very Hard"
     }
   ]
 }

@@ -1,153 +1,274 @@
-import { GRADE_ORDER } from './data.js';
+/**
+ * filters.js - search, chip filters and sorting for the checklist.
+ *
+ * A filter object is plain data, so it can be snapshotted, reset, hashed or
+ * shared without surprises:
+ *
+ *   { query, kind, grade, difficulty, status, missable, favorite, sort, orderAsc }
+ *
+ * The engine is split into small pure pieces:
+ *   - `searchText(trophy)`        everything a trophy can be searched by,
+ *   - `predicates(filters, opts)` the ordered predicate list to satisfy,
+ *   - `sortTrophies(list, ...)`   a stable, new-array sort,
+ *   - `applyFilters(trophies, filters, options)` composes both.
+ *
+ * `options` bundles everything the engine needs besides the trophies:
+ *
+ *   { store, spoiler, hideEarned, orderIndex }
+ *
+ * `filterKey(filters)` yields a stable string so the app can memoize the
+ * filtered array cheaply.
+ */
+
+import { GRADES, KINDS, KIND_LABELS, DIFFICULTY_BANDS, gradeLabel, difficultyLabel } from './data.js';
 import { includesCI } from './util.js';
 
 export const KIND_CHIPS = [
   { id: 'all', label: 'All' },
-  { id: 'story', label: 'Story' },
-  { id: 'missions', label: 'Missions' },
-  { id: 'strangers', label: 'Strangers' },
-  { id: 'activities', label: 'Activities' },
-  { id: 'collectibles', label: 'Collectibles' },
-  { id: 'world', label: 'World' },
-  { id: 'crime', label: 'Crime' },
-  { id: 'completion', label: 'Completion' },
+  ...KINDS.map((id) => ({ id, label: KIND_LABELS[id] })),
 ];
 
 export const GRADE_CHIPS = [
   { id: 'all', label: 'All' },
-  { id: 'platinum', label: 'Platinum' },
-  { id: 'gold', label: 'Gold' },
-  { id: 'silver', label: 'Silver' },
-  { id: 'bronze', label: 'Bronze' },
+  ...GRADES.map((grade) => ({ id: grade, label: gradeLabel(grade) })),
+];
+
+/** Difficulty facets: 'all' plus the named bands defined in data.js. */
+export const DIFFICULTY_CHIPS = [
+  { id: 'all', label: 'Any' },
+  ...DIFFICULTY_BANDS.map((band) => ({ id: band.id, label: band.label })),
 ];
 
 export const STATUS_CHIPS = [
   { id: 'all', label: 'All' },
   { id: 'earned', label: 'Earned' },
   { id: 'remaining', label: 'Remaining' },
+  { id: 'missable', label: 'Missable' },
 ];
 
 export const SORT_CHOICES = [
-  { id: 'order', label: 'Order' },
+  { id: 'order', label: 'Roadmap order' },
   { id: 'name', label: 'Name' },
   { id: 'rarity', label: 'Rarity' },
   { id: 'time', label: 'Estimated time' },
+  { id: 'difficulty', label: 'Difficulty' },
 ];
 
-export function createFilters() {
-  return {
-    query: '',
-    kind: 'all',
-    grade: 'all',
-    status: 'all',
-    missable: false,
-    sort: 'order',
-    orderAsc: true,
-  };
+export const DEFAULT_FILTERS = Object.freeze({
+  query: '',
+  kind: 'all',
+  grade: 'all',
+  difficulty: 'all',
+  status: 'all',
+  missable: false,
+  favorite: false,
+  sort: 'order',
+  orderAsc: true,
+});
+
+const VALID = {
+  kind: new Set([...KINDS, 'all']),
+  grade: new Set([...GRADES, 'all']),
+  difficulty: new Set([...DIFFICULTY_BANDS.map((b) => b.id), 'all']),
+  status: new Set(['all', 'earned', 'remaining', 'missable']),
+  sort: new Set(SORT_CHOICES.map((choice) => choice.id)),
+};
+
+function coerce(key, value) {
+  const fallback = DEFAULT_FILTERS[key];
+  switch (key) {
+    case 'query':
+      return value == null ? '' : String(value);
+    case 'missable':
+    case 'favorite':
+    case 'orderAsc':
+      return typeof value === 'boolean' ? value : fallback;
+    case 'kind':
+    case 'grade':
+    case 'difficulty':
+    case 'status':
+    case 'sort':
+      return VALID[key].has(value) ? value : fallback;
+    default:
+      return fallback;
+  }
 }
 
-/**
- * Apply every active filter to a trophy list and return the results in the
- * requested sort order. Filters combine additively (AND): a trophy must pass
- * search, category, grade, status and missable constraints to be included.
- */
-export function applyFilters(trophies, filters, store, spoiler) {
-  const f = filters || {};
-  const query = (f.query || '').trim().toLowerCase();
-
-  let list = trophies.filter((t) => {
-    if (f.kind && f.kind !== 'all' && normalizeKind(t) !== f.kind) return false;
-    if (f.grade && f.grade !== 'all' && t.grade !== f.grade) return false;
-
-    if (f.status === 'earned' && !store.isEarned(t.name)) return false;
-    if (f.status === 'remaining' && store.isEarned(t.name)) return false;
-
-    if (f.missable && !t.missable) return false;
-
-    if (isMaskedStory(t, store, spoiler)) {
-      return !query || includesCI(t.name + ' ' + t.description + ' ' + (t.guide || ''), query);
+/** Merge overrides onto the defaults, ignoring unknown keys and bad values. */
+export function createFilters(overrides) {
+  const next = { ...DEFAULT_FILTERS };
+  if (overrides && typeof overrides === 'object') {
+    for (const key of Object.keys(DEFAULT_FILTERS)) {
+      if (overrides[key] !== undefined) next[key] = coerce(key, overrides[key]);
     }
+  }
+  return next;
+}
 
-    if (query && !includesCI(t.name + ' ' + t.description + ' ' + (t.guide || ''), query)) {
-      return false;
-    }
+export function isDefaultFilters(filters) {
+  const f = createFilters(filters);
+  return Object.keys(DEFAULT_FILTERS).every((key) => f[key] === DEFAULT_FILTERS[key]);
+}
 
-    return true;
-  });
+/** How many non-default filter facets are active (drives the Reset chip). */
+export function activeFilterCount(filters) {
+  const f = createFilters(filters);
+  let count = 0;
+  if (f.query.trim()) count += 1;
+  if (f.kind !== 'all') count += 1;
+  if (f.grade !== 'all') count += 1;
+  if (f.difficulty !== 'all') count += 1;
+  if (f.status !== 'all') count += 1;
+  if (f.missable) count += 1;
+  if (f.favorite) count += 1;
+  if (f.sort !== 'order' || f.orderAsc === false) count += 1;
+  return count;
+}
 
-  list = sortTrophies(list, f.sort, f.orderAsc);
+/** Stable key describing the active filters, suitable for memoization. */
+export function filterKey(filters) {
+  const f = createFilters(filters);
+  return [
+    f.query.trim().toLowerCase(),
+    f.kind,
+    f.grade,
+    f.difficulty,
+    f.status,
+    f.missable,
+    f.favorite,
+    f.sort,
+    f.orderAsc,
+  ].join('|');
+}
+
+/** Whether a story trophy is masked by spoiler mode. Earned trophies always show. */
+export function isMaskedStory(trophy, store, spoiler) {
+  return !!spoiler && trophy.kind === 'story' && !store.isEarned(trophy.name);
+}
+
+/** Everything a trophy can be searched by, joined for a substring match. */
+export function searchText(trophy) {
+  return [
+    trophy.name,
+    trophy.description,
+    trophy.guide,
+    trophy.hint,
+    trophy.area,
+    trophy.kind,
+    difficultyLabel(trophy.difficulty),
+    ...(trophy.tags || []),
+    ...(trophy.steps || []),
+  ].join(' ');
+}
+
+/** Map a difficulty filter band id onto a { min, max } inclusive range, or null. */
+function difficultyRange(bandId) {
+  if (bandId === 'all') return null;
+  const band = DIFFICULTY_BANDS.find((b) => b.id === bandId);
+  if (!band) return null;
+  return { min: band.min, max: band.max };
+}
+
+/** Build the ordered predicate list from a filter object plus engine options. */
+export function predicates(filters, options = {}) {
+  const { store, spoiler = false, hideEarned = false } = options;
+  const f = createFilters(filters);
+  const query = f.query.trim().toLowerCase();
+  const list = [];
+
+  if (hideEarned) list.push((t) => !store.isEarned(t.name));
+  if (f.favorite) list.push((t) => typeof store.isFavorite === 'function' && store.isFavorite(t.name));
+
+  // Masked story trophies expose no searchable text, so a query never matches them.
+  if (query) list.push((t) => (isMaskedStory(t, store, spoiler) ? false : includesCI(searchText(t), query)));
+
+  if (f.kind !== 'all') list.push((t) => t.kind === f.kind);
+  if (f.grade !== 'all') list.push((t) => t.grade === f.grade);
+
+  const range = difficultyRange(f.difficulty);
+  if (range) list.push((t) => t.difficulty != null && t.difficulty >= range.min && t.difficulty <= range.max);
+
+  if (f.missable || f.status === 'missable') list.push((t) => !!t.missable);
+
+  if (f.status === 'earned') list.push((t) => store.isEarned(t.name));
+  else if (f.status === 'remaining') list.push((t) => !store.isEarned(t.name));
+
   return list;
 }
 
-export function sortTrophies(list, sort, asc) {
+function matches(trophy, list) {
+  for (const predicate of list) {
+    if (!predicate(trophy)) return false;
+  }
+  return true;
+}
+
+/** Sort value for rarity: real percent, or a per-grade fallback when absent. */
+function rarityValue(trophy) {
+  if (trophy.rarityPercent != null && Number.isFinite(trophy.rarityPercent)) return trophy.rarityPercent;
+  if (trophy.grade === 'platinum') return 1000; // always the rarest
+  if (trophy.grade === 'gold') return 100;
+  if (trophy.grade === 'silver') return 10;
+  return 1;
+}
+
+function cmpOrder(a, b, orderIndex) {
+  const ia = a.id ?? 0;
+  const ib = b.id ?? 0;
+  if (ia !== ib) return ia - ib;
+  const oa = orderIndex && orderIndex.has(a.name) ? orderIndex.get(a.name) : 0;
+  const ob = orderIndex && orderIndex.has(b.name) ? orderIndex.get(b.name) : 0;
+  return oa - ob;
+}
+
+function compareNullable(av, bv, dir) {
+  if (av == null && bv == null) return 0;
+  if (av == null) return 1;
+  if (bv == null) return -1;
+  return (av - bv) * dir;
+}
+
+/** Sort a trophy list, returning a new array. Falls back to roadmap order. */
+export function sortTrophies(list, sort, asc, orderIndex) {
   const dir = asc === false ? -1 : 1;
   const out = [...list];
+  const byOrder = (a, b) => cmpOrder(a, b, orderIndex);
+
   switch (sort) {
     case 'name':
-      out.sort((a, b) => (a.name || '').localeCompare(b.name || '') * dir || orderKey(a) - orderKey(b));
+      out.sort((a, b) => dir * (a.name || '').localeCompare(b.name || '') || byOrder(a, b));
       break;
-    case 'rarity': {
-      out.sort((a, b) => {
-        const ra = rarityValue(a);
-        const rb = rarityValue(b);
-        const c = (ra - rb) * dir || orderKey(a) - orderKey(b);
-        return c;
-      });
+    case 'rarity':
+      out.sort((a, b) => dir * (rarityValue(a) - rarityValue(b)) || byOrder(a, b));
       break;
-    }
-    case 'time': {
-      out.sort((a, b) => {
-        const ta = timeValue(a);
-        const tb = timeValue(b);
-        if (ta == null && tb == null) return orderKey(a) - orderKey(b);
-        if (ta == null) return 1;
-        if (tb == null) return -1;
-        return (ta - tb) * dir || orderKey(a) - orderKey(b);
-      });
+    case 'time':
+      out.sort((a, b) => compareNullable(a.timeHours, b.timeHours, dir) || byOrder(a, b));
       break;
-    }
+    case 'difficulty':
+      out.sort((a, b) => dir * ((a.difficulty ?? 0) - (b.difficulty ?? 0)) || byOrder(a, b));
+      break;
     case 'order':
-    default: {
-      out.sort((a, b) => (orderKey(a) - orderKey(b)) * dir);
+    default:
+      out.sort((a, b) => byOrder(a, b) * dir);
       break;
-    }
   }
   return out;
 }
 
-function orderKey(t) {
-  return (t.stage == null ? 99 : t.stage) * 10000 + (t.id == null ? 0 : t.id);
-}
-
-function rarityValue(t) {
-  const n = Number(t.rarity);
-  return Number.isFinite(n) ? n : (t.grade === 'platinum' ? 0 : 0);
-}
-
-function timeValue(t) {
-  if (t.timeEstimate == null) return null;
-  const n = Number(t.timeEstimate);
-  return Number.isFinite(n) ? n : null;
-}
-
-export function isMaskedStory(t, store, spoiler) {
-  return !!spoiler && normalizeKind(t) === 'story' && !store.isEarned(t.name);
-}
-
-function normalizeKind(t) {
-  if (!t) return 'normal';
-  if (t.kind === 'normal') return 'normal';
-  const k = KIND_CHIPS.find((c) => c.id !== 'all' && c.id === t.kind);
-  return k ? t.kind : 'normal';
-}
-
-export function describeKind(kind) {
-  if (!kind || kind === 'normal') return 'Normal';
-  const chip = KIND_CHIPS.find((c) => c.id !== 'all' && c.id === kind);
-  if (chip) return chip.label;
-  return String(kind).charAt(0).toUpperCase() + String(kind).slice(1);
-}
-
-export function kindLabel(kind) {
-  return describeKind(kind);
+/**
+ * Filter then sort a trophy list.
+ *
+ * @param {Array}  trophies    normalized trophies to run through the engine
+ * @param {object} filters     plain filter data (see createFilters)
+ * @param {object} options     { store, spoiler, hideEarned, orderIndex }
+ */
+export function applyFilters(trophies, filters, options = {}) {
+  const { store, spoiler = false, hideEarned = false, orderIndex } = options;
+  const f = createFilters(filters);
+  const list = predicates(filters, { store, spoiler, hideEarned });
+  const result = [];
+  for (const trophy of trophies || []) {
+    if (matches(trophy, list)) result.push(trophy);
+  }
+  return sortTrophies(result, f.sort, f.orderAsc, orderIndex);
 }

@@ -1,108 +1,104 @@
-import { el } from '../util.js';
-import { describeKind } from '../filters.js';
+import { el, button } from '../util.js';
+import { kindLabel, durationText } from '../data.js';
 import { difficultyDots } from './checklist.js';
 
 export function renderPlanner(ctx) {
-  const wrap = el('section', 'view-pane');
+  const summary = ctx.summary;
+  const pane = el('section', 'view-pane planner-pane');
 
-  const ordered = [...ctx.trophies].sort(
-    (a, b) => (a.stage == null ? 99 : a.stage) - (b.stage == null ? 99 : b.stage) || a.id - b.id
-  );
-  const remaining = ordered.filter((t) => !ctx.store.isEarned(t.name));
-  const PLAN_LIMIT = 8;
-  const next = remaining.slice(0, PLAN_LIMIT);
-  const planFull = remaining.length > PLAN_LIMIT;
+  const head = el('div', 'checklist-header');
+  const titleWrap = el('div');
+  titleWrap.appendChild(el('h2', '', 'Planner'));
+  titleWrap.appendChild(el('p', 'pane-sub', 'Your remaining trophies in roadmap order, grouped into sessions.'));
+  head.appendChild(titleWrap);
+  pane.appendChild(head);
 
-  wrap.appendChild(el('h2', '', 'Planner'));
-  wrap.appendChild(el('p', 'planner-count', 'Remaining: ' + remaining.length + ' · Estimated time left: ~' + formatHours(remainingTotal(remaining))));
+  const stats = el('div', 'planner-stats');
+  stats.appendChild(statCard('Trophies left', String(summary.total - summary.earned)));
+  stats.appendChild(statCard('Stages left', String(summary.stageCount - summary.completeStages)));
+  stats.appendChild(statCard('Missables left', String(summary.missables.remaining)));
+  stats.appendChild(statCard('Time remaining', '~' + summary.hours.remainingText));
+  pane.appendChild(stats);
 
-  const sessions = groupSessions(next, ctx);
-  for (const s of sessions) {
-    const group = el('div', 'session-group');
-    group.appendChild(el('h3', '', s.title));
-    group.appendChild(el('p', 'session-meta', s.meta));
-    const list = el('div', 'planner-list');
-    for (const t of s.items) {
-      list.appendChild(renderItem(ctx, t));
-    }
-    group.appendChild(list);
-    wrap.appendChild(group);
+  if (summary.isComplete) {
+    const done = el('div', 'planner-done');
+    done.appendChild(el('h3', '', 'Platinum earned'));
+    done.appendChild(el('p', '', 'Every trophy is checked off. Congratulations, Leonida Legend!'));
+    pane.appendChild(done);
+    return pane;
   }
 
-  if (!next.length) {
-    wrap.appendChild(el('div', 'empty', 'You have earned every trophy. Congratulations!'));
-  }
+  const remaining = summary.stages
+    .filter((s) => s.percent < 100)
+    .map((s) => ({ stage: s, trophies: s.trophies.filter((t) => !ctx.store.isEarned(t.name)) }))
+    .filter((g) => g.trophies.length > 0);
 
-  if (planFull) {
-    wrap.appendChild(el(
-      'p', 'planner-note',
-      'Showing your next ' + PLAN_LIMIT + ' trophies — ' + (remaining.length - PLAN_LIMIT) +
-      ' more remain. This list fills as you earn the ones above.'
-    ));
-  }
+  for (const group of remaining) pane.appendChild(renderSession(ctx, group.stage, group.trophies));
 
   const tip = el('div', 'planner-advice');
-  const tipText = next.length
-    ? 'Work top to bottom in stage order. Nail any missable trophy while its quest is still live.'
-    : 'Every trophy earned — run the final completion sweep to close out 100%.';
-  tip.appendChild(el('p', 'hint-text', tipText));
-  wrap.appendChild(tip);
+  tip.appendChild(el('p', 'hint-text',
+    'Work top to bottom in roadmap order. Clear any missable trophy while its set piece is still live, before it slips away.'));
+  pane.appendChild(tip);
 
-  return wrap;
+  return pane;
 }
 
-function renderItem(ctx, t) {
-  const item = el('div', 'planner-item');
+function statCard(label, value) {
+  const card = el('div', 'planner-stat');
+  card.appendChild(el('strong', 'planner-stat-value', value));
+  card.appendChild(el('span', 'planner-stat-label', label));
+  return card;
+}
+
+function renderSession(ctx, stage, trophies) {
+  const group = el('div', 'session-group');
+  const head = el('div', 'session-head');
+  head.appendChild(el('span', 'stage-num small', String(stage.stage)));
+  head.appendChild(el('h3', '', stage.title));
+  const time = trophies.reduce((acc, t) => acc + (t.timeHours || 0), 0);
+  const miss = trophies.filter((t) => t.missable).length;
+  head.appendChild(el('span', 'session-meta',
+    trophies.length + ' left' + (miss ? ' - ' + miss + ' missable' : '') + (time ? ' - ~' + formatRemaining(time) : '')));
+  group.appendChild(head);
+
+  const list = el('ul', 'planner-list');
+  for (const t of trophies) list.appendChild(renderItem(ctx, stage, t));
+  group.appendChild(list);
+  return group;
+}
+
+function renderItem(ctx, stage, t) {
+  const item = el('li', 'planner-item' + (t.missable ? ' missable' : '') + ' grade-' + t.grade);
+
+  const check = el('label', 'planner-check');
+  const cb = document.createElement('input');
+  cb.type = 'checkbox';
+  cb.checked = false;
+  cb.setAttribute('aria-label', 'Mark ' + t.name + ' as earned');
+  cb.addEventListener('change', () => ctx.actions.toggle(t.name));
+  check.appendChild(cb);
+  item.appendChild(check);
+
   const left = el('div', 'planner-left');
-  left.appendChild(el('span', 'grade-badge ' + t.grade, t.grade));
   const nameBtn = el('button', 'planner-name', t.name);
   nameBtn.type = 'button';
-  nameBtn.addEventListener('click', () => ctx.onSelect(t));
+  nameBtn.addEventListener('click', () => ctx.actions.select(t));
   left.appendChild(nameBtn);
   item.appendChild(left);
 
   const right = el('div', 'planner-right');
-  const stageMeta = el('span', 'planner-when', 'Stage ' + (t.stage == null ? '?' : t.stage));
-  right.appendChild(stageMeta);
-  const prog = el('span', 'planner-prog', t.count ? t.count.target + ' ' + t.count.label : '');
-  if (t.count) right.appendChild(prog);
-  if (t.timeEstimate != null) right.appendChild(el('span', 'planner-time', '~' + t.timeEstimate + 'h'));
-  right.appendChild(difficultyDots(t.difficulty));
+  if (t.missable) right.appendChild(el('span', 'chip missable', 'Missable'));
+  for (const tag of t.tags || []) right.appendChild(el('span', 'chip tag', tag));
+  right.appendChild(el('span', 'planner-kind', kindLabel(t.kind)));
+  const time = durationText(t);
+  if (time && time !== '-') right.appendChild(el('span', 'planner-time', time));
+  if (t.difficulty != null) right.appendChild(difficultyDots(t.difficulty, true));
   item.appendChild(right);
-
   return item;
 }
 
-function groupSessions(list, ctx) {
-  if (!list.length) return [];
-  const groups = [];
-  let current = null;
-  for (const t of list) {
-    const stage = t.stage == null ? '?' : t.stage;
-    if (!current || current.stage !== stage) {
-      if (current) groups.push(current);
-      current = { stage, items: [], title: 'Stage ' + stage, meta: '' };
-    }
-    current.items.push(t);
-  }
-  if (current) groups.push(current);
-  for (const g of groups) {
-    const miss = g.items.filter((t) => t.missable).length;
-    const time = g.items.reduce((acc, t) => acc + (t.timeEstimate || 0), 0);
-    g.meta = g.items.length + ' trophy' + (g.items.length === 1 ? '' : 's') +
-      (miss ? ' · ' + miss + ' missable' : '') +
-      (time ? ' · ~' + formatHours(time) : '');
-  }
-  return groups;
-}
-
-function remainingTotal(list) {
-  return list.reduce((acc, t) => acc + (t.timeEstimate || 0), 0);
-}
-
-function formatHours(h) {
-  const n = Number(h);
-  if (!n) return '0h';
-  if (n < 1) return Math.round(n * 60) + 'min';
+function formatRemaining(hours) {
+  const n = Number(hours) || 0;
+  if (n < 1) return Math.max(5, Math.round(n * 60)) + 'm';
   return (Math.round(n * 10) / 10) + 'h';
 }

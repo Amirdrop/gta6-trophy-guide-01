@@ -1,80 +1,166 @@
-import { el } from '../util.js';
+import { el, button } from '../util.js';
+import { kindLabel } from '../data.js';
+import { difficultyDots } from './checklist.js';
 
 export function renderRoadmap(ctx) {
-  const wrap = el('section', 'view-pane');
-  wrap.appendChild(el('h2', '', 'Roadmap'));
-  wrap.appendChild(el('p', 'missables-intro', 'A recommended order of play. Missable trophies are flagged with a bullet so you can nail them while their quest is still live.'));
+  const pane = el('section', 'view-pane roadmap-pane');
+  pane.appendChild(renderHeader(ctx));
 
-  let stages;
-  if (Array.isArray(ctx.roadmap) && ctx.roadmap.length) {
-    const byId = new Map(ctx.trophies.map((t) => [t.id, t]));
-    stages = ctx.roadmap.map((s, i) => ({
-      key: i,
-      title: s.title || ('Stage ' + (s.stage ?? i + 1)),
-      blurb: s.blurb || '',
-      stageNum: s.stage ?? i + 1,
-      trophies: (s.trophies || [])
-        .map((n) => byId.get(n))
-        .filter(Boolean),
-    }));
+  if (!ctx.stages.length) {
+    const empty = el('div', 'empty');
+    empty.appendChild(el('h3', '', 'No roadmap yet'));
+    empty.appendChild(el('p', '', 'The roadmap data could not be loaded. The checklist tab still works.'));
+    pane.appendChild(empty);
+    return pane;
+  }
+
+  const track = el('div', 'roadmap-track');
+  for (const stage of ctx.stages) {
+    track.appendChild(renderStage(ctx, stage));
+  }
+  pane.appendChild(track);
+  return pane;
+}
+
+function renderHeader(ctx) {
+  const summary = ctx.summary;
+  const head = el('div', 'checklist-header');
+  const titleWrap = el('div');
+  titleWrap.appendChild(el('h2', '', 'Platinum Roadmap'));
+  titleWrap.appendChild(el('p', 'pane-sub', 'A recommended order of play, from opening mission to platinum.'));
+  head.appendChild(titleWrap);
+
+  const progress = el('div', 'roadmap-progress');
+  const bar = el('div', 'progress-mini');
+  const fill = el('div', 'progress-mini-fill');
+  fill.style.width = summary.percent + '%';
+  bar.appendChild(fill);
+  progress.appendChild(bar);
+  progress.appendChild(el('span', 'roadmap-progress-text',
+    summary.completeStages + ' / ' + summary.stageCount + ' stages complete'));
+  head.appendChild(progress);
+  return head;
+}
+
+function prerequisiteTitle(ctx, stage) {
+  if (!stage.prerequisite) return null;
+  const prev = (ctx.stages || []).find((s) => s.id === stage.prerequisite);
+  return prev ? prev.title : null;
+}
+
+function renderStage(ctx, stage) {
+  const card = el('article', 'stage' + (stage.complete ? ' complete' : '') + (stage.missable ? ' has-missables' : ''));
+  card.id = 'stage-' + stage.id;
+  const header = el('div', 'stage-head');
+
+  const marker = el('div', 'stage-marker');
+  marker.appendChild(el('span', 'stage-num', stage.complete ? 'OK' : String(stage.stage)));
+  header.appendChild(marker);
+
+  const titles = el('div', 'stage-titles');
+  titles.appendChild(el('h3', '', stage.title));
+  if (stage.subtitle) titles.appendChild(el('p', 'stage-subtitle', stage.subtitle));
+  header.appendChild(titles);
+
+  const meta = el('div', 'stage-meta');
+  if (stage.estimatedHours) meta.appendChild(el('span', 'stage-hours', stage.estimatedHours));
+  if (stage.difficulty) meta.appendChild(el('span', 'stage-difficulty', stage.difficulty));
+  const prereq = prerequisiteTitle(ctx, stage);
+  if (prereq) {
+    const chip = el('span', 'stage-prereq', 'after: ' + prereq);
+    chip.title = 'Recommended to start after ' + prereq;
+    meta.appendChild(chip);
+  }
+  meta.appendChild(el('span', 'stage-progress',
+    stage.earned + ' / ' + stage.total + ' earned'));
+  if (stage.missables) {
+    const open = stage.trophies.filter((t) => t.missable).filter((t) => !ctx.store.isEarned(t.name)).length;
+    meta.appendChild(el('span', 'stage-missables' + (open ? '' : ' done'),
+      stage.missables + ' missable' + (stage.missables === 1 ? '' : 's')));
+  }
+  header.appendChild(meta);
+  card.appendChild(header);
+
+  const body = el('div', 'stage-body');
+  if (stage.description) body.appendChild(el('p', 'stage-blurb', stage.description));
+
+  if (stage.goals && stage.goals.length) {
+    const goals = el('div', 'stage-goals');
+    goals.appendChild(el('span', 'stage-side-label', 'Stage goals'));
+    for (const goal of stage.goals) goals.appendChild(el('p', 'stage-goal-item', goal));
+    body.appendChild(goals);
+  }
+
+  const bar = el('div', 'progressbar');
+  bar.setAttribute('role', 'progressbar');
+  bar.setAttribute('aria-valuenow', String(stage.percent));
+  bar.setAttribute('aria-valuemin', '0');
+  bar.setAttribute('aria-valuemax', '100');
+  bar.setAttribute('aria-label', stage.title + ': ' + stage.earned + ' of ' + stage.total + ' earned');
+  const fill = el('div', 'progressbar-fill');
+  fill.style.width = stage.percent + '%';
+  bar.appendChild(fill);
+  body.appendChild(bar);
+
+  if (stage.focus.length) {
+    const focus = el('div', 'stage-focus');
+    for (const item of stage.focus) focus.appendChild(el('p', 'stage-focus-item', item));
+    body.appendChild(focus);
+  }
+
+  if (stage.tips.length) {
+    const tips = el('div', 'stage-tips');
+    tips.appendChild(el('span', 'stage-side-label', 'Tips'));
+    for (const item of stage.tips) tips.appendChild(el('p', 'stage-tip-item', item));
+    body.appendChild(tips);
+  }
+
+  if (stage.warnings.length) {
+    const warns = el('div', 'stage-warnings');
+    warns.appendChild(el('span', 'stage-side-label', 'Watch out'));
+    for (const item of stage.warnings) warns.appendChild(el('p', 'stage-warning-item', item));
+    body.appendChild(warns);
+  }
+
+  if (stage.trophies.length) {
+    const list = el('ul', 'stage-trophies');
+    const trophies = [...stage.trophies].sort((a, b) => (a.id ?? 0) - (b.id ?? 0));
+    for (const t of trophies) list.appendChild(renderTrophy(ctx, t));
+    body.appendChild(list);
   } else {
-    const grouped = new Map();
-    for (const t of ctx.trophies) {
-      const key = t.stage == null ? 0 : t.stage;
-      if (!grouped.has(key)) grouped.set(key, []);
-      grouped.get(key).push(t);
-    }
-    const keys = [...grouped.keys()].sort((a, b) => a - b);
-    stages = keys.map((k) => ({
-      key: k,
-      title: k === 0 ? 'Other' : 'Stage ' + k,
-      blurb: '',
-      stageNum: k,
-      trophies: grouped.get(k),
-    }));
+    body.appendChild(el('p', 'stage-empty', 'No trophies assigned to this stage.'));
   }
 
-  if (!stages.length) {
-    wrap.appendChild(el('div', 'empty', 'No roadmap stages available.'));
-    return wrap;
-  }
+  card.appendChild(body);
+  return card;
+}
 
-  for (const s of stages) {
-    const card = el('div', 'stage');
-    const head = el('div', 'stage-head');
-    const h3 = el('h3', '', s.title);
-    head.appendChild(h3);
-    const earned = s.trophies.filter((t) => ctx.store.isEarned(t.name)).length;
-    const missables = s.trophies.filter((t) => t.missable).length;
-    head.appendChild(el('span', 'stage-progress', earned + ' / ' + s.trophies.length + ' earned' + (missables ? ' · ' + missables + ' missable' : '')));
-    card.appendChild(head);
+function renderTrophy(ctx, t) {
+  const earned = ctx.store.isEarned(t.name);
+  const item = el('li', 'stage-trophy' + (earned ? ' earned' : '') + (t.missable ? ' missable' : '') + ' grade-' + t.grade);
 
-    const body = el('div', 'stage-body');
-    if (s.blurb) body.appendChild(el('p', 'stage-blurb', s.blurb));
+  const toggleLabel = el('label', 'stage-check');
+  const cb = document.createElement('input');
+  cb.type = 'checkbox';
+  cb.checked = earned;
+  cb.setAttribute('aria-label', (earned ? 'Unmark ' : 'Mark ') + t.name + ' as earned');
+  cb.addEventListener('change', () => ctx.actions.toggle(t.name));
+  toggleLabel.appendChild(cb);
+  item.appendChild(toggleLabel);
 
-    const chips = el('div', 'chips');
-    for (const t of s.trophies) {
-      const chip = el('button', 'chip stage-chip');
-      chip.type = 'button';
-      chip.classList.add('grade-' + t.grade);
-      if (ctx.store.isEarned(t.name)) chip.classList.add('earned');
-      if (t.missable) chip.classList.add('missable');
-      chip.textContent = (t.missable ? '• ' : '') + t.name;
-      chip.title = (t.missable ? 'Missable · ' : '') + (ctx.store.isEarned(t.name) ? 'Earned' : 'Not earned');
-      chip.addEventListener('click', () => ctx.onSelect(t));
-      chips.appendChild(chip);
-    }
-    body.appendChild(chips);
+  const nameBtn = el('button', 'stage-trophy-name', t.name);
+  nameBtn.type = 'button';
+  nameBtn.addEventListener('click', () => ctx.actions.select(t));
+  if (earned) nameBtn.classList.add('is-earned');
+  item.appendChild(nameBtn);
 
-    const bar = el('div', 'progressbar');
-    const fill = el('div', 'progressbar-fill');
-    fill.style.width = (s.trophies.length ? Math.round((earned / s.trophies.length) * 100) : 0) + '%';
-    bar.appendChild(fill);
-    body.appendChild(bar);
+  const flags = el('div', 'stage-trophy-flags');
+  if (t.missable) flags.appendChild(el('span', 'chip missable', 'Missable'));
+  if (t.kind) flags.appendChild(el('span', 'chip kind', kindLabel(t.kind)));
+  const diff = t.difficulty;
+  if (diff != null) flags.appendChild(difficultyDots(diff, true));
+  item.appendChild(flags);
 
-    card.appendChild(body);
-    wrap.appendChild(card);
-  }
-
-  return wrap;
+  if (t.description) item.appendChild(el('p', 'stage-trophy-desc', t.description));
+  return item;
 }

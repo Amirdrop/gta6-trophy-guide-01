@@ -2,19 +2,20 @@ import puppeteer from 'puppeteer-core';
 import { mkdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { spawn } from 'node:child_process';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = resolve(__dirname, '..');
 const outDir = join(root, 'screenshots');
 mkdirSync(outDir, { recursive: true });
 
-const BASE = process.env.SHOT_BASE || 'http://127.0.0.1:8377';
+const PORT = Number(process.env.SHOT_PORT || 8377);
+const BASE = process.env.SHOT_BASE || `http://127.0.0.1:${PORT}`;
 const CHROME = process.env.CHROME_PATH || '/opt/hermes-browser/chromium-1208/chrome-linux64/chrome';
 const VIEWPORT = { width: 1280, height: 800 };
+const SAVE_KEY = 'gta6trophies.v2';
 
-const SAVE_KEY = 'gta6trophies.v1';
-
-const DEMO = [
+const EARNED = [
   'Just Like Paradise',
   'Paradise Lost',
   'T**s Ass Drug Money',
@@ -28,52 +29,94 @@ const DEMO = [
   'Snow Storm',
   'You WAiNKer!',
   'Positive Mental Attitude',
-  'Cunning Stunts',
 ];
 
-// 13 of the 55 trophies earned (~24%).
-const EARNED = DEMO.slice(0, 13);
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 function saveFor(settings) {
-  return JSON.stringify({
-    saveVersion: 1,
-    earned: EARNED,
-    settings: settings || {},
-  });
+  return JSON.stringify({ saveVersion: 2, earned: EARNED, settings: settings || {} });
 }
 
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+async function startServer() {
+  if (process.env.SHOT_BASE) return null;
+  const child = spawn(process.execPath, ['serve.ts', '--port', String(PORT)], {
+    cwd: root,
+    stdio: ['ignore', 'pipe', 'pipe'],
+  });
+  await new Promise((resolveReady, reject) => {
+    const timer = setTimeout(() => reject(new Error('server did not start in time')), 8000);
+    child.stdout.on('data', (buf) => {
+      if (String(buf).includes('http://')) {
+        clearTimeout(timer);
+        resolveReady();
+      }
+    });
+    child.stderr.on('data', (buf) => process.stderr.write(String(buf)));
+    child.on('error', reject);
+  });
+  return child;
+}
 
 async function loadApp(page, hash, { spoiler = false } = {}) {
   const errors = [];
   page.on('pageerror', (e) => errors.push('pageerror: ' + e.message));
-  page.on('console', (m) => { if (m.type() === 'error') errors.push('console: ' + m.text()); });
+  page.on('console', (m) => {
+    if (m.type() === 'error') errors.push('console: ' + m.text());
+  });
 
-  // Establish origin first, then seed localStorage, then hard-reload the target
-  // hash so boot() re-runs and picks up the seeded save (a plain goto to the same
-  // path only changing the hash is same-document and would not re-run boot).
   await page.goto(BASE + '/', { waitUntil: 'networkidle0' });
-  await page.evaluate(({ key, val }) => {
-    localStorage.setItem(key, val);
-  }, { key: SAVE_KEY, val: saveFor({ spoiler }) });
+  await page.evaluate(({ key, val }) => localStorage.setItem(key, val), {
+    key: SAVE_KEY,
+    val: saveFor({ spoiler }),
+  });
   await page.goto(BASE + '/' + hash, { waitUntil: 'networkidle0' });
   await page.reload({ waitUntil: 'networkidle0' });
 
-  // Wait for the app shell and data-driven content to render.
-  await page.waitForSelector('.app', { timeout: 8000 });
-  await page.waitForFunction(() => document.querySelectorAll('.trophy-card, .stage, .missable-card').length > 0, { timeout: 8000 });
-
-  await sleep(400); // let progress bars / layout settle
+  await page.waitForSelector('.app', { timeout: 10000 });
+  await page.waitForFunction(
+    () => document.querySelector('.view-pane') && document.body.classList.contains('app-ready'),
+    { timeout: 10000 },
+  );
+  await sleep(450);
   return errors;
 }
 
 const shots = [
-  { file: '1-checklist-guide.jpg', hash: '#checklist', openGuide: true, label: 'Checklist with guide panel open' },
-  { file: '2-roadmap.jpg', hash: '#roadmap', openGuide: false, label: 'Roadmap with stages & progress' },
-  { file: '3-missables.jpg', hash: '#missables', openGuide: false, label: 'Missables list' },
-  { file: '4-spoiler.jpg', hash: '#checklist', openGuide: true, spoiler: true, label: 'Checklist, spoiler mode ON, guide open' },
+  {
+    file: '1-checklist-guide.jpg',
+    hash: '#checklist',
+    label: 'Checklist with guide panel open',
+    async prepare(page) {
+      await page.evaluate(() => {
+        const cards = [...document.querySelectorAll('.trophy-card')];
+        const target = cards.find((c) => !c.classList.contains('earned')) || cards[0];
+        const btn = target && target.querySelector('.guide-btn');
+        if (btn) btn.click();
+      });
+      await page.waitForSelector('.detail-pane', { timeout: 6000 });
+      await sleep(400);
+    },
+  },
+  { file: '2-roadmap.jpg', hash: '#roadmap', label: 'Platinum roadmap with named stages' },
+  {
+    file: '3-missables.jpg',
+    hash: '#missables',
+    label: 'Missables list with windows',
+  },
+  {
+    file: '4-spoiler.jpg',
+    hash: '#checklist',
+    spoiler: true,
+    label: 'Checklist with spoiler mode on',
+  },
+  {
+    file: '5-planner.jpg',
+    hash: '#planner',
+    label: 'Planner with next-up sessions',
+  },
 ];
 
+const server = await startServer();
 const browser = await puppeteer.launch({
   executablePath: CHROME,
   headless: 'new',
@@ -81,41 +124,37 @@ const browser = await puppeteer.launch({
   args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage', '--disable-gpu'],
 });
 
-let allErrors = false;
+let anyErrors = false;
 try {
-  for (const s of shots) {
+  await sleep(300);
+  for (const shot of shots) {
     const page = await browser.newPage();
-    const errors = await loadApp(page, s.hash, { spoiler: !!s.spoiler });
+    const errors = await loadApp(page, shot.hash, { spoiler: !!shot.spoiler });
+    if (shot.prepare) await shot.prepare(page);
 
-    if (s.openGuide) {
-      // Open a guide panel by clicking the first visible Guide button on the checklist.
-      const clicked = await page.evaluate(() => {
-        const btns = [...document.querySelectorAll('.guide-btn')];
-        const btn = btns.find((b) => b.offsetParent !== null);
-        if (!btn) return false;
-        btn.click();
-        return true;
-      });
-      if (!clicked) errors.push('no guide button found to open');
-      await page.waitForSelector('.detail-pane', { timeout: 6000 });
-      await sleep(400);
-    }
+    const bootError = await page.evaluate(() => document.body.getAttribute('data-boot-error'));
+    if (bootError) errors.push('boot error: ' + bootError);
+    const renderError = await page.evaluate(() => {
+      const host = document.querySelector('[data-render-error]');
+      return host ? host.getAttribute('data-render-error') : null;
+    });
+    if (renderError) errors.push('render error: ' + renderError);
 
-    const path = join(outDir, s.file);
-    await page.screenshot({ path, type: 'jpeg', quality: 85 });
-    console.log(`saved ${s.file} (${s.label})`);
-
+    const path = join(outDir, shot.file);
+    await page.screenshot({ path, type: 'jpeg', quality: 86 });
+    console.log(`saved ${shot.file} (${shot.label})`);
     if (errors.length) {
-      allErrors = true;
-      console.error(`JS errors for ${s.file}:`);
-      for (const e of errors) console.error('  ' + e);
+      anyErrors = true;
+      console.error(`JS errors for ${shot.file}:`);
+      for (const err of errors) console.error('  ' + err);
     } else {
-      console.log(`  no JS errors for ${s.file}`);
+      console.log(`  no JS errors for ${shot.file}`);
     }
     await page.close();
   }
 } finally {
   await browser.close();
+  if (server) server.kill('SIGTERM');
 }
 
-if (allErrors) process.exit(1);
+if (anyErrors) process.exit(1);

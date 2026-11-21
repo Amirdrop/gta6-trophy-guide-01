@@ -6,7 +6,10 @@
     "makeup": "1 platinum, 2 gold, 6 silver, 46 bronze",
     "list_sources": "Names, descriptions and grades as published on Exophase and PSNProfiles before launch, frozen 2026-11-18",
     "spoiler_note": "Story trophies are masked by default while Spoiler mode is on.",
-    "sources_note": "Every trophy cites the official list pages; guide text is this entry's own advice from the official descriptions."
+    "sources_note": "Every trophy cites the official list pages; guide text is this entry's own advice from the official descriptions.",
+    "summary": "A complete, offline platinum roadmap for GTA 6: 55 trophies across six named stages, with 9 missable trophies flagged up front, per-trophy difficulty and time estimates, spoiler protection, and progress saved only in your browser.",
+    "totalMissable": 9,
+    "enriched": "Every trophy carries a difficulty rating, a time estimate, tags (grind/stealth/combat/police/driving/collectibles/...), a missable flag with its in-game window, and a roadmap session grouping."
   },
   "trophies": [
     {
@@ -17,7 +20,8 @@
       "guide": "This is the platinum trophy, awarded once you have collected all other trophies in the game. There is no special action to take for it beyond completing the rest of the list, so treat it as the end goal of your overall trophy hunt.",
       "hint": "Earn the other 54 trophies.",
       "kind": "completion",
-      "stage": 7,
+      "area": "All of Leonida (endgame)",
+      "stage": 6,
       "missable": false,
       "difficulty": 5,
       "steps": [
@@ -34,7 +38,13 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "90-120 hrs"
+      "timeEstimate": "90-120 hrs",
+      "rarityPercent": 45,
+      "platform": "PlayStation 5",
+      "tags": [
+        "completion"
+      ],
+      "session": "platinum"
     },
     {
       "id": 2,
@@ -44,6 +54,7 @@
       "guide": "This trophy comes naturally from playing the story and completing the early mission Gone Fishing. No special preparation or side activities are required — just finish the mission and the unlock happens automatically.",
       "hint": "Finish the opening mission, Gone Fishing.",
       "kind": "story",
+      "area": "Leonida - opening mission",
       "stage": 1,
       "missable": false,
       "difficulty": 1,
@@ -62,7 +73,14 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "20-30 min"
+      "timeEstimate": "20-30 min",
+      "rarityPercent": 60,
+      "platform": "PlayStation 5",
+      "tags": [
+        "missions",
+        "story"
+      ],
+      "session": "main-story"
     },
     {
       "id": 3,
@@ -72,6 +90,7 @@
       "guide": "A purely story-driven trophy earned by completing Chapter 1 of the campaign. It unlocks automatically as you work your way through the early story missions, so no special effort or side content is needed.",
       "hint": "Finish Chapter 1.",
       "kind": "story",
+      "area": "Leonida - Chapter 1",
       "stage": 1,
       "missable": false,
       "difficulty": 1,
@@ -90,7 +109,14 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "1-2 hrs"
+      "timeEstimate": "1-2 hrs",
+      "rarityPercent": 60,
+      "platform": "PlayStation 5",
+      "tags": [
+        "missions",
+        "story"
+      ],
+      "session": "main-story"
     },
     {
       "id": 4,
@@ -100,7 +126,8 @@
       "guide": "This trophy is tied to story progression and unlocks when you complete Chapter 2. It comes automatically as you follow the campaign missions through the second chapter, with no optional objectives or collectibles required.",
       "hint": "Finish Chapter 2.",
       "kind": "story",
-      "stage": 2,
+      "area": "Leonida - Chapter 2",
+      "stage": 1,
       "missable": false,
       "difficulty": 1,
       "steps": [
@@ -118,7 +145,15 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "2-4 hrs"
+      "timeEstimate": "2-4 hrs",
+      "rarityPercent": 60,
+      "platform": "PlayStation 5",
+      "tags": [
+        "collectibles",
+        "missions",
+        "story"
+      ],
+      "session": "main-story"
     },
     {
       "id": 5,
@@ -128,7 +163,8 @@
       "guide": "A story trophy earned by completing Chapter 3 of the campaign. It unlocks naturally as you push through the chapter's missions, with no extra grinding or side activities involved.",
       "hint": "Finish Chapter 3.",
       "kind": "story",
-      "stage": 2,
+      "area": "Leonida - Chapter 3",
+      "stage": 1,
       "missable": false,
       "difficulty": 2,
       "steps": [
@@ -146,7 +182,15 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "2-5 hrs"
+      "timeEstimate": "2-5 hrs",
+      "rarityPercent": 60,
+      "platform": "PlayStation 5",
+      "tags": [
+        "grind",
+        "missions",
+        "story"
+      ],
+      "session": "main-story"
     },
     {
       "id": 6,
@@ -156,7 +200,8 @@
       "guide": "This trophy unlocks when you complete Chapter 4 of the story. Like the other chapter trophies it comes automatically from campaign progress, so just keep playing through the chapter's missions to earn it.",
       "hint": "Finish Chapter 4.",
       "kind": "story",
-      "stage": 2,
+      "area": "Leonida - Chapter 4",
+      "stage": 1,
       "missable": false,
       "difficulty": 2,
       "steps": [
@@ -174,7 +219,14 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "3-6 hrs"
+      "timeEstimate": "3-6 hrs",
+      "rarityPercent": 60,
+      "platform": "PlayStation 5",
+      "tags": [
+        "missions",
+        "story"
+      ],
+      "session": "main-story"
     },
     {
       "id": 7,
@@ -184,7 +236,8 @@
       "guide": "This is a gold story trophy awarded for completing the final mission of the game. The final mission is the culmination of the campaign and lands with the credits once you finish it, so it cannot be missed — simply work through the main story to reach and beat the last mission.",
       "hint": "Finish the final mission (gold).",
       "kind": "story",
-      "stage": 7,
+      "area": "Leonida - finale",
+      "stage": 1,
       "missable": false,
       "difficulty": 2,
       "steps": [
@@ -202,7 +255,14 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "4-8 hrs"
+      "timeEstimate": "4-8 hrs",
+      "rarityPercent": 60,
+      "platform": "PlayStation 5",
+      "tags": [
+        "missions",
+        "story"
+      ],
+      "session": "main-story"
     },
     {
       "id": 8,
@@ -212,6 +272,7 @@
       "guide": "This story trophy unlocks by completing the early mission Breakfast Run. It comes naturally during the opening part of the campaign, with no special setup or side content needed before earning it.",
       "hint": "Finish the mission Breakfast Run.",
       "kind": "story",
+      "area": "Leonida - early campaign",
       "stage": 1,
       "missable": false,
       "difficulty": 2,
@@ -230,7 +291,14 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "30-45 min"
+      "timeEstimate": "30-45 min",
+      "rarityPercent": 60,
+      "platform": "PlayStation 5",
+      "tags": [
+        "missions",
+        "story"
+      ],
+      "session": "main-story"
     },
     {
       "id": 9,
@@ -240,7 +308,8 @@
       "guide": "This mission trophy is earned by completing The Cartel Heist, a heist mission reached during the campaign. Since it is story-gated, simply play through the main missions until the heist unlocks and then finish it to earn the unlock.",
       "hint": "Finish the mission The Cartel Heist.",
       "kind": "missions",
-      "stage": 2,
+      "area": "Leonida - heist missions",
+      "stage": 1,
       "missable": false,
       "difficulty": 3,
       "steps": [
@@ -258,7 +327,14 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "1-2 hrs"
+      "timeEstimate": "1-2 hrs",
+      "rarityPercent": 58,
+      "platform": "PlayStation 5",
+      "tags": [
+        "missions",
+        "story"
+      ],
+      "session": "main-story"
     },
     {
       "id": 10,
@@ -268,7 +344,8 @@
       "guide": "A mission trophy that comes from completing Child's Play, a story-gated mission. Follow the campaign until this mission opens up, then finish it to earn the unlock automatically.",
       "hint": "Finish the mission Child's Play.",
       "kind": "missions",
-      "stage": 2,
+      "area": "Leonida - heist missions",
+      "stage": 1,
       "missable": false,
       "difficulty": 3,
       "steps": [
@@ -286,7 +363,14 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "1-2 hrs"
+      "timeEstimate": "1-2 hrs",
+      "rarityPercent": 58,
+      "platform": "PlayStation 5",
+      "tags": [
+        "missions",
+        "story"
+      ],
+      "session": "main-story"
     },
     {
       "id": 11,
@@ -296,7 +380,8 @@
       "guide": "This mission trophy requires you to complete Headliners, a story-gated mission. Keep advancing the campaign until Headliners unlocks, then complete it to earn the trophy as part of normal story flow.",
       "hint": "Finish the mission Headliners.",
       "kind": "missions",
-      "stage": 2,
+      "area": "Leonida - city core",
+      "stage": 1,
       "missable": false,
       "difficulty": 4,
       "steps": [
@@ -314,7 +399,14 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "2-3 hrs"
+      "timeEstimate": "2-3 hrs",
+      "rarityPercent": 63,
+      "platform": "PlayStation 5",
+      "tags": [
+        "missions",
+        "story"
+      ],
+      "session": "main-story"
     },
     {
       "id": 12,
@@ -324,7 +416,8 @@
       "guide": "A mission trophy earned by completing VCIA Takedown, which is story-gated. Advance the campaign until this mission appears, then beat it to earn the trophy through regular story progression.",
       "hint": "Finish the mission VCIA Takedown.",
       "kind": "missions",
-      "stage": 2,
+      "area": "Leonida - city core",
+      "stage": 1,
       "missable": false,
       "difficulty": 4,
       "steps": [
@@ -342,7 +435,14 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "2-3 hrs"
+      "timeEstimate": "2-3 hrs",
+      "rarityPercent": 63,
+      "platform": "PlayStation 5",
+      "tags": [
+        "missions",
+        "story"
+      ],
+      "session": "main-story"
     },
     {
       "id": 13,
@@ -352,7 +452,8 @@
       "guide": "This mission trophy comes from completing Operation Savage Glory, a story-gated mission. Play through the campaign until the operation opens up, then finish it to earn the unlock as part of normal story flow.",
       "hint": "Finish the mission Operation Savage Glory.",
       "kind": "missions",
-      "stage": 2,
+      "area": "Leonida - north ridge",
+      "stage": 1,
       "missable": false,
       "difficulty": 4,
       "steps": [
@@ -370,7 +471,14 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "2-3 hrs"
+      "timeEstimate": "2-3 hrs",
+      "rarityPercent": 63,
+      "platform": "PlayStation 5",
+      "tags": [
+        "missions",
+        "story"
+      ],
+      "session": "main-story"
     },
     {
       "id": 14,
@@ -380,7 +488,8 @@
       "guide": "This gold trophy requires you to reach 100% Completion, which typically tracks story missions, side activities, and collectibles across the game world. The exact checklist is best confirmed in-game, so use the progress screen to monitor what remains and work through everything until the total hits 100%.",
       "hint": "Reach 100% completion (gold).",
       "kind": "completion",
-      "stage": 7,
+      "area": "All of Leonida",
+      "stage": 6,
       "missable": false,
       "difficulty": 5,
       "steps": [
@@ -401,7 +510,15 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "10-15 hrs"
+      "timeEstimate": "10-15 hrs",
+      "rarityPercent": 45,
+      "platform": "PlayStation 5",
+      "tags": [
+        "collectibles",
+        "completion",
+        "missions"
+      ],
+      "session": "platinum"
     },
     {
       "id": 15,
@@ -411,7 +528,8 @@
       "guide": "Cunning Stunts asks you to land 250 Stunts across Leonida. Stunts trigger when you pull off flashy vehicle moves such as flips, long airtime, or tight near-misses, and many are tied to marked stunt spots on the map. Grind them out during normal free-roam driving rather than forcing it, and you will hit the total through regular play.",
       "hint": "Pull off 250 stunts (silver).",
       "kind": "activities",
-      "stage": 5,
+      "area": "Stunt spots across Leonida",
+      "stage": 4,
       "missable": false,
       "count": {
         "target": 250,
@@ -435,7 +553,15 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "6-9 hrs"
+      "timeEstimate": "6-9 hrs",
+      "rarityPercent": 75,
+      "platform": "PlayStation 5",
+      "tags": [
+        "activities",
+        "driving",
+        "grind"
+      ],
+      "session": "activities"
     },
     {
       "id": 16,
@@ -445,7 +571,8 @@
       "guide": "Master of None simply asks you to try each type of activity once. The Activities menu lists every type available across Leonida, so work through the list and play at least one session of each. Nine distinct types exist in total, and a quick round of each should complete it without needing to win anything.",
       "hint": "Try all 9 activity types once.",
       "kind": "activities",
-      "stage": 5,
+      "area": "Activities menu",
+      "stage": 4,
       "missable": false,
       "count": {
         "target": 9,
@@ -469,7 +596,13 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "3-5 hrs"
+      "timeEstimate": "3-5 hrs",
+      "rarityPercent": 70,
+      "platform": "PlayStation 5",
+      "tags": [
+        "activities"
+      ],
+      "session": "activities"
     },
     {
       "id": 17,
@@ -479,7 +612,8 @@
       "guide": "The Shootist requires a gold medal in every Shooting Range challenge, all 42 of them spread across the state. Each course has its own target pattern and time limit, so replay a course once you know its rhythm to shave seconds and chase the medal. Work location by location and the full set will fall into place.",
       "hint": "Gold all 42 Shooting Range challenges (silver).",
       "kind": "activities",
-      "stage": 5,
+      "area": "Shooting ranges across Leonida",
+      "stage": 4,
       "missable": false,
       "count": {
         "target": 42,
@@ -503,7 +637,15 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "2-3 hrs"
+      "timeEstimate": "2-3 hrs",
+      "rarityPercent": 70,
+      "platform": "PlayStation 5",
+      "tags": [
+        "activities",
+        "collectibles",
+        "combat"
+      ],
+      "session": "activities"
     },
     {
       "id": 18,
@@ -513,7 +655,8 @@
       "guide": "Top Fun asks you to win a Top Fun Drone Race at all 14 locations across Leonida. Each race is a timed drone course, so learn the route and you can win comfortably. Keep a note of which locations you have cleared so you can sweep back for any you skipped.",
       "hint": "Win a Top Fun drone race at all 14 locations.",
       "kind": "activities",
-      "stage": 5,
+      "area": "Top Fun hubs across Leonida",
+      "stage": 4,
       "missable": false,
       "count": {
         "target": 14,
@@ -537,7 +680,16 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "3-5 hrs"
+      "timeEstimate": "3-5 hrs",
+      "rarityPercent": 75,
+      "platform": "PlayStation 5",
+      "tags": [
+        "activities",
+        "collectibles",
+        "driving",
+        "grind"
+      ],
+      "session": "activities"
     },
     {
       "id": 19,
@@ -547,7 +699,8 @@
       "guide": "Earn Cash, Not Kudos is about winning 20 different races rather than the same race twice. The Activities menu offers a range of race types around Leonida, and every distinct race you win adds to the total. Rotate between different courses and disciplines to build toward the full 20.",
       "hint": "Win 20 different races.",
       "kind": "activities",
-      "stage": 5,
+      "area": "Race tracks across Leonida",
+      "stage": 4,
       "missable": false,
       "count": {
         "target": 20,
@@ -571,7 +724,15 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "2-4 hrs"
+      "timeEstimate": "2-4 hrs",
+      "rarityPercent": 70,
+      "platform": "PlayStation 5",
+      "tags": [
+        "activities",
+        "combat",
+        "driving"
+      ],
+      "session": "activities"
     },
     {
       "id": 20,
@@ -581,6 +742,7 @@
       "guide": "Baited My Tackle requires you to beat Cal in a fishing challenge. Cal is tied to the fishing activity, so find the associated spot, take on the challenge, and out-fish him to secure the win. Success comes down to mastering the catch mechanics once the challenge begins.",
       "hint": "Beat Cal in a fishing challenge.",
       "kind": "activities",
+      "area": "Fishing waters of Leonida",
       "stage": 3,
       "missable": false,
       "difficulty": 3,
@@ -601,7 +763,13 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "1-2 hrs"
+      "timeEstimate": "1-2 hrs",
+      "rarityPercent": 70,
+      "platform": "PlayStation 5",
+      "tags": [
+        "activities"
+      ],
+      "session": "strangers"
     },
     {
       "id": 21,
@@ -611,6 +779,7 @@
       "guide": "Stick Fiddler simply asks you to complete an arcade game. Arcade machines with playable games can be found around Leonida, and beating one of them to its ending is all that is required. Pick whichever game you find easiest and see it through to the end.",
       "hint": "Finish one arcade game.",
       "kind": "strangers",
+      "area": "Arcades across Leonida",
       "stage": 3,
       "missable": false,
       "difficulty": 3,
@@ -631,7 +800,13 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "2-3 hrs"
+      "timeEstimate": "2-3 hrs",
+      "rarityPercent": 66,
+      "platform": "PlayStation 5",
+      "tags": [
+        "strangers"
+      ],
+      "session": "strangers"
     },
     {
       "id": 22,
@@ -641,6 +816,7 @@
       "guide": "Road to Rehabilitation is earned by completing the final mission for Andy. Andy runs one of the stranger mission strands, so you follow his storyline and clear each step as it appears. See his arc through to the end and the trophy unlocks with his last mission.",
       "hint": "Finish Andy's last mission.",
       "kind": "strangers",
+      "area": "Andy's stranger strand",
       "stage": 3,
       "missable": false,
       "difficulty": 3,
@@ -661,7 +837,15 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "3-5 hrs"
+      "timeEstimate": "3-5 hrs",
+      "rarityPercent": 66,
+      "platform": "PlayStation 5",
+      "tags": [
+        "combat",
+        "missions",
+        "strangers"
+      ],
+      "session": "strangers"
     },
     {
       "id": 23,
@@ -671,6 +855,7 @@
       "guide": "This Was No Boat Accident comes from completing the final mission for Kenton. Kenton offers his own stranger strand, so you follow his missions as they unlock and finish the whole arc. His last mission awarding the trophy is the end of that thread.",
       "hint": "Finish Kenton's last mission.",
       "kind": "strangers",
+      "area": "Kenton's stranger strand",
       "stage": 3,
       "missable": false,
       "difficulty": 1,
@@ -691,7 +876,14 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "0-30 min"
+      "timeEstimate": "10-20 min",
+      "rarityPercent": 66,
+      "platform": "PlayStation 5",
+      "tags": [
+        "combat",
+        "strangers"
+      ],
+      "session": "strangers"
     },
     {
       "id": 24,
@@ -701,6 +893,7 @@
       "guide": "The Lone Rider requires you to complete the final mission for Billy. Billy's stranger strand plays out across Leonida, and finishing each mission in sequence leads to his last one. Complete that closing mission and the trophy is yours.",
       "hint": "Finish Billy's last mission.",
       "kind": "strangers",
+      "area": "Billy's stranger strand",
       "stage": 3,
       "missable": false,
       "difficulty": 2,
@@ -721,7 +914,14 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "3-5 hrs"
+      "timeEstimate": "3-5 hrs",
+      "rarityPercent": 66,
+      "platform": "PlayStation 5",
+      "tags": [
+        "combat",
+        "strangers"
+      ],
+      "session": "strangers"
     },
     {
       "id": 25,
@@ -731,6 +931,7 @@
       "guide": "Strangers & Freaks asks you to complete 8 mission strands for strangers across the state of Leonida. Each named stranger offers a multi-mission thread, so pick strands you have started and run them to their conclusion. Finishing eight of these arcs unlocks the trophy.",
       "hint": "Finish 8 stranger strands (silver).",
       "kind": "strangers",
+      "area": "Stranger spots across Leonida",
       "stage": 3,
       "missable": false,
       "count": {
@@ -755,7 +956,14 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "3-5 hrs"
+      "timeEstimate": "3-5 hrs",
+      "rarityPercent": 66,
+      "platform": "PlayStation 5",
+      "tags": [
+        "combat",
+        "strangers"
+      ],
+      "session": "strangers"
     },
     {
       "id": 26,
@@ -765,6 +973,7 @@
       "guide": "Supply & Demand is won by completing the final mission for Randy. Randy runs a stranger strand you follow across the state, clearing missions in sequence. Reach and complete his final mission and the trophy pops.",
       "hint": "Finish Randy's last mission.",
       "kind": "strangers",
+      "area": "Randy's stranger strand",
       "stage": 3,
       "missable": false,
       "difficulty": 3,
@@ -785,7 +994,14 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "3-5 hrs"
+      "timeEstimate": "3-5 hrs",
+      "rarityPercent": 66,
+      "platform": "PlayStation 5",
+      "tags": [
+        "combat",
+        "strangers"
+      ],
+      "session": "strangers"
     },
     {
       "id": 27,
@@ -795,6 +1011,7 @@
       "guide": "Spin On This! comes from completing the final mission for Tyrone. Tyrone's stranger strand develops over several missions, and you complete them one after another. Finishing his closing mission is what unlocks the trophy.",
       "hint": "Finish Tyrone's last mission.",
       "kind": "strangers",
+      "area": "Tyrone's stranger strand",
       "stage": 3,
       "missable": false,
       "difficulty": 4,
@@ -815,7 +1032,14 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "2-3 hrs"
+      "timeEstimate": "2-3 hrs",
+      "rarityPercent": 71,
+      "platform": "PlayStation 5",
+      "tags": [
+        "combat",
+        "strangers"
+      ],
+      "session": "strangers"
     },
     {
       "id": 28,
@@ -825,7 +1049,8 @@
       "guide": "Positive Mental Attitude asks you to meditate at every spot across Leonida, all 18 of them. Meditation spots are marked locations where you can sit and settle, so travel the state and trigger each one. There is no stated exact placement for each spot here, so sweep the map and clear them as you find them.",
       "hint": "Meditate at all 18 spots.",
       "kind": "world",
-      "stage": 4,
+      "area": "Meditation spots across Leonida",
+      "stage": 2,
       "missable": false,
       "count": {
         "target": 18,
@@ -849,7 +1074,16 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "2-3 hrs"
+      "timeEstimate": "2-3 hrs",
+      "rarityPercent": 64,
+      "platform": "PlayStation 5",
+      "tags": [
+        "collectibles",
+        "explore",
+        "grind",
+        "world"
+      ],
+      "session": "world-sweep"
     },
     {
       "id": 29,
@@ -859,6 +1093,7 @@
       "guide": "Fair Game requires you to hunt a unique animal for Bret. Bret's stranger strand sets you after a special target, so follow his missions and track down the animal he wants. The exact location of the unique beast is not pinned down here, so rely on Bret's direction to find it.",
       "hint": "Hunt the unique animal for Bret.",
       "kind": "strangers",
+      "area": "Bret's hunting strand",
       "stage": 3,
       "missable": false,
       "difficulty": 2,
@@ -879,7 +1114,15 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "3-5 hrs"
+      "timeEstimate": "3-5 hrs",
+      "rarityPercent": 66,
+      "platform": "PlayStation 5",
+      "tags": [
+        "collectibles",
+        "combat",
+        "strangers"
+      ],
+      "session": "strangers"
     },
     {
       "id": 30,
@@ -889,7 +1132,8 @@
       "guide": "Don't Touch My Deck asks you to complete 3 Collectible Card sets. Collectible Cards are spread around Leonida and group into themed sets, so gather every card in a set to complete it. Filling out three full sets is all that stands between you and the trophy.",
       "hint": "Complete 3 collectible card sets (silver).",
       "kind": "collectibles",
-      "stage": 4,
+      "area": "Collectible card spots in Leonida",
+      "stage": 2,
       "missable": false,
       "count": {
         "target": 3,
@@ -913,7 +1157,14 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "15-20 hrs"
+      "timeEstimate": "15-20 hrs",
+      "rarityPercent": 77,
+      "platform": "PlayStation 5",
+      "tags": [
+        "collectibles",
+        "explore"
+      ],
+      "session": "world-sweep"
     },
     {
       "id": 31,
@@ -923,7 +1174,8 @@
       "guide": "You WAiNKer! requires you to WAiNK It at 100 locations across Leonida. WAiNK is an interactive action available at marked spots, so it is a long collectible sweep of the state. The exact placement of all 100 is not listed here, so work through the map region by region until you trigger the action everywhere.",
       "hint": "WAiNK It at 100 locations (silver).",
       "kind": "collectibles",
-      "stage": 4,
+      "area": "WAiNK spots across Leonida",
+      "stage": 2,
       "missable": false,
       "count": {
         "target": 100,
@@ -947,7 +1199,15 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "10-15 hrs"
+      "timeEstimate": "10-15 hrs",
+      "rarityPercent": 72,
+      "platform": "PlayStation 5",
+      "tags": [
+        "collectibles",
+        "explore",
+        "grind"
+      ],
+      "session": "world-sweep"
     },
     {
       "id": 32,
@@ -957,7 +1217,8 @@
       "guide": "One Last Thing asks you to complete 50 Challenges. The Challenges system tracks a broad set of goals covering activities, combat and driving across Leonida, so chip away at them as you play normally. Passing the 50 mark unlocks the trophy, and the tracker tells you how far along you are at any time.",
       "hint": "Finish 50 Challenges.",
       "kind": "activities",
-      "stage": 5,
+      "area": "Challenge tracker",
+      "stage": 4,
       "missable": false,
       "count": {
         "target": 50,
@@ -981,7 +1242,14 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "5-7 hrs"
+      "timeEstimate": "5-7 hrs",
+      "rarityPercent": 70,
+      "platform": "PlayStation 5",
+      "tags": [
+        "activities",
+        "driving"
+      ],
+      "session": "activities"
     },
     {
       "id": 33,
@@ -991,9 +1259,9 @@
       "guide": "Hot Together wants you to lose a 4 star Wanted Level while your partner is with you. Build the heat to four stars, then lose the police rather than letting the level reset on its own fixes. Work with your partner to outrun or outmaneuver the search radius and let the wanted meter drain naturally to clear it.",
       "hint": "Lose a 4-star wanted level with your partner.",
       "kind": "crime",
-      "stage": 6,
+      "area": "Any heat zone (with partner)",
+      "stage": 5,
       "missable": true,
-      "missable_note": "The description describes one specific Wanted Level escape with no wording for a repeat attempt; treat it as missable until confirmed in-game.",
       "difficulty": 3,
       "steps": [
         "Push your Wanted Level up to 4 stars with your partner",
@@ -1012,7 +1280,17 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "5-7 hrs"
+      "timeEstimate": "5-7 hrs",
+      "missableNote": "The description describes one specific Wanted Level escape with no wording for a repeat attempt; treat it as missable until confirmed in-game.",
+      "rarityPercent": 82,
+      "platform": "PlayStation 5",
+      "missableWindow": "One-time crime encounter",
+      "tags": [
+        "crime",
+        "missable",
+        "police"
+      ],
+      "session": "crime-cleanup"
     },
     {
       "id": 34,
@@ -1022,9 +1300,9 @@
       "guide": "Retail Therapy asks you to rob three shops back-to-back with your partner while never losing your Wanted Level. Plan a route through three close stores and keep the police off you between each hit, since the meter must stay active across all three robberies. Once the third shop is done the chain clears.",
       "hint": "Rob 3 shops in a row with your partner, keeping your wanted level.",
       "kind": "crime",
-      "stage": 6,
+      "area": "Convenience stores (with partner)",
+      "stage": 5,
       "missable": true,
-      "missable_note": "The description names a single three-shop back-to-back stretch with no repeat wording; treat it as missable until confirmed in-game.",
       "difficulty": 4,
       "steps": [
         "Rob one shop with your partner to start the chain",
@@ -1043,7 +1321,17 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "15-20 hrs"
+      "timeEstimate": "15-20 hrs",
+      "missableNote": "The description names a single three-shop back-to-back stretch with no repeat wording; treat it as missable until confirmed in-game.",
+      "rarityPercent": 87,
+      "platform": "PlayStation 5",
+      "missableWindow": "One-time crime encounter",
+      "tags": [
+        "crime",
+        "missable",
+        "police"
+      ],
+      "session": "crime-cleanup"
     },
     {
       "id": 35,
@@ -1053,7 +1341,8 @@
       "guide": "Whip It Good asks you to discover 100 vehicles across Leonida. Hop into as many distinct cars, trucks, bikes and specialty rides as you can, since each type only counts toward the total once. Free-roam driving and swapping rides as you explore will steadily fill the counter without much grinding.",
       "hint": "Discover 100 vehicles.",
       "kind": "world",
-      "stage": 4,
+      "area": "All of Leonida",
+      "stage": 2,
       "missable": false,
       "count": {
         "target": 100,
@@ -1077,7 +1366,16 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "3-5 hrs"
+      "timeEstimate": "3-5 hrs",
+      "rarityPercent": 64,
+      "platform": "PlayStation 5",
+      "tags": [
+        "driving",
+        "explore",
+        "grind",
+        "world"
+      ],
+      "session": "world-sweep"
     },
     {
       "id": 36,
@@ -1087,7 +1385,8 @@
       "guide": "Gunslinger wants you to take down five enemies in a single use of Combat Focus. Fill the Combat Focus meter, then gather five hostiles into one tight group and pop the focus. Drop all five before the slow-motion window ends, so line up a clean cluster rather than spreading your shots.",
       "hint": "Down 5 enemies in one Combat Focus.",
       "kind": "crime",
-      "stage": 6,
+      "area": "Street combat",
+      "stage": 5,
       "missable": false,
       "difficulty": 4,
       "steps": [
@@ -1107,7 +1406,13 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "5-8 hrs"
+      "timeEstimate": "5-8 hrs",
+      "rarityPercent": 79,
+      "platform": "PlayStation 5",
+      "tags": [
+        "crime"
+      ],
+      "session": "crime-cleanup"
     },
     {
       "id": 37,
@@ -1117,9 +1422,9 @@
       "guide": "Catch Me If You Can wants an unscheduled departure at VCIA, Leonida's airport. Instead of taking a scheduled flight, trigger a spontaneous getaway — hop a plane or force an unplanned takeoff to slip away early. The description frames one specific situation, so treat it as a one-time missable moment rather than a repeatable grind.",
       "hint": "Leave VCIA in an unscheduled way.",
       "kind": "crime",
-      "stage": 6,
+      "area": "VCIA airport",
+      "stage": 5,
       "missable": true,
-      "missable_note": "The description names one unscheduled departure at VCIA with no second-chance wording; treat it as missable until confirmed in-game.",
       "difficulty": 3,
       "steps": [
         "Reach VCIA without planning to fly",
@@ -1138,7 +1443,17 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "15-25 hrs"
+      "timeEstimate": "15-25 hrs",
+      "missableNote": "The description names one unscheduled departure at VCIA with no second-chance wording; treat it as missable until confirmed in-game.",
+      "rarityPercent": 82,
+      "platform": "PlayStation 5",
+      "missableWindow": "One-time crime encounter",
+      "tags": [
+        "crime",
+        "grind",
+        "missable"
+      ],
+      "session": "crime-cleanup"
     },
     {
       "id": 38,
@@ -1148,7 +1463,8 @@
       "guide": "Challenging Tank, described as kind of hot in these Rhinos, puts you behind heavy armor for a tough fight. Take command of a tank and use its firepower to sweep the opposing armor off the streets while staying out of their line of fire. It is a combat trial, so expect to trade fire until the battlefield is clear.",
       "hint": "Deal with Rhinos (tanks).",
       "kind": "crime",
-      "stage": 6,
+      "area": "Rhino tank encounter",
+      "stage": 5,
       "missable": false,
       "difficulty": 4,
       "steps": [
@@ -1168,7 +1484,14 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "4-6 hrs"
+      "timeEstimate": "4-6 hrs",
+      "rarityPercent": 79,
+      "platform": "PlayStation 5",
+      "tags": [
+        "crime",
+        "grind"
+      ],
+      "session": "crime-cleanup"
     },
     {
       "id": 39,
@@ -1178,7 +1501,8 @@
       "guide": "Sneakthief wants you to rob a jewelry store without being detected. Move slowly, watch patrol routes, and clear out security before tripping any alarm or raising a guard. If you stay completely undetected for the whole hit, the robbery counts toward this trophy. It is a clean getaway job rather than a firefight.",
       "hint": "Rob a jewelry store without being seen.",
       "kind": "crime",
-      "stage": 6,
+      "area": "Jewelry stores",
+      "stage": 5,
       "missable": false,
       "difficulty": 4,
       "steps": [
@@ -1198,7 +1522,13 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "1-2 hrs"
+      "timeEstimate": "1-2 hrs",
+      "rarityPercent": 79,
+      "platform": "PlayStation 5",
+      "tags": [
+        "crime"
+      ],
+      "session": "crime-cleanup"
     },
     {
       "id": 40,
@@ -1208,7 +1538,8 @@
       "guide": "Maximum Withdrawal asks you to rob five Bank Vaults and escape each time. Every vault you hit adds to a running count, so work through the bank jobs across Leonida rather than a single score. As long as you get out after each one, the counter climbs to five and the trophy unlocks.",
       "hint": "Rob 5 bank vaults and escape (silver).",
       "kind": "crime",
-      "stage": 6,
+      "area": "Bank vaults across Leonida",
+      "stage": 5,
       "missable": false,
       "count": {
         "target": 5,
@@ -1232,7 +1563,13 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "10-15 hrs"
+      "timeEstimate": "10-15 hrs",
+      "rarityPercent": 79,
+      "platform": "PlayStation 5",
+      "tags": [
+        "crime"
+      ],
+      "session": "crime-cleanup"
     },
     {
       "id": 41,
@@ -1242,7 +1579,8 @@
       "guide": "A Classic Blitz Play asks you to rob an Armored Truck and escape. Hit a cash truck mid-route, crack it open and grab the cash, deal with any guards or escort, then get clear with the haul before the heat closes in. One clean armored truck heist gets it done.",
       "hint": "Rob an armored truck and escape.",
       "kind": "crime",
-      "stage": 6,
+      "area": "Armored truck routes",
+      "stage": 5,
       "missable": false,
       "difficulty": 4,
       "steps": [
@@ -1262,7 +1600,13 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "2-3 hrs"
+      "timeEstimate": "2-3 hrs",
+      "rarityPercent": 79,
+      "platform": "PlayStation 5",
+      "tags": [
+        "crime"
+      ],
+      "session": "crime-cleanup"
     },
     {
       "id": 42,
@@ -1272,7 +1616,8 @@
       "guide": "The Goodtime State asks you to explore all of Leonida. There are 52 named areas spread across the state, and you need to set foot in each one to tick it off. Drive, fly and sail through every district and settlement as you play, and the counter fills in as each area registers.",
       "hint": "Explore all 52 areas of Leonida.",
       "kind": "world",
-      "stage": 4,
+      "area": "All 52 areas of Leonida",
+      "stage": 2,
       "missable": false,
       "count": {
         "target": 52,
@@ -1296,7 +1641,14 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "8-12 hrs"
+      "timeEstimate": "8-12 hrs",
+      "rarityPercent": 69,
+      "platform": "PlayStation 5",
+      "tags": [
+        "explore",
+        "world"
+      ],
+      "session": "world-sweep"
     },
     {
       "id": 43,
@@ -1306,7 +1658,8 @@
       "guide": "Pest Control wants you to rob an Illegal Operation belonging to each gang. Leonida's nine gangs each run their own racket, and you need to hit one operation from every one of them. Work your way across the map robbing a single operation per gang until all nine are covered, then the trophy lands.",
       "hint": "Rob one illegal operation of each of the 9 gangs.",
       "kind": "crime",
-      "stage": 6,
+      "area": "Gang operations across Leonida",
+      "stage": 5,
       "missable": false,
       "count": {
         "target": 9,
@@ -1330,7 +1683,13 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "12-18 hrs"
+      "timeEstimate": "12-18 hrs",
+      "rarityPercent": 79,
+      "platform": "PlayStation 5",
+      "tags": [
+        "crime"
+      ],
+      "session": "crime-cleanup"
     },
     {
       "id": 44,
@@ -1340,9 +1699,9 @@
       "guide": "In The Beginning asks you to enjoy a cocktail with a view on Ocean Beach. Walk onto the beach in Leonida, find a place overlooking the water, order a drink and simply sit back and take it in. The description points to a single specific spot, so treat it as a one-time moment rather than a repeatable objective.",
       "hint": "Have a cocktail with a view on Ocean Beach.",
       "kind": "world",
-      "stage": 1,
+      "area": "Ocean Beach",
+      "stage": 5,
       "missable": true,
-      "missable_note": "The description names one specific spot (Ocean Beach) with no repeat wording; treat it as missable until confirmed in-game.",
       "difficulty": 1,
       "steps": [
         "Head to Ocean Beach",
@@ -1361,7 +1720,17 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "10-20 min"
+      "timeEstimate": "10-20 min",
+      "missableNote": "The description names one specific spot (Ocean Beach) with no repeat wording; treat it as missable until confirmed in-game.",
+      "rarityPercent": 72,
+      "platform": "PlayStation 5",
+      "missableWindow": "One-time crime encounter",
+      "tags": [
+        "explore",
+        "missable",
+        "world"
+      ],
+      "session": "crime-cleanup"
     },
     {
       "id": 45,
@@ -1371,9 +1740,9 @@
       "guide": "Capital Offense wants you to smash your way out of a vehicle showroom in classic style. Pick the flashiest or fastest car in the place, then blast it straight through the glass and out onto the street. The description pins it to one showroom moment, so treat it as a one-time set piece rather than a repeatable goal.",
       "hint": "Smash out of a vehicle showroom in style.",
       "kind": "world",
-      "stage": 1,
+      "area": "Vehicle showrooms",
+      "stage": 5,
       "missable": true,
-      "missable_note": "The description describes smashing out of a specific vehicle showroom with no repeat wording; treat it as missable until confirmed in-game.",
       "difficulty": 2,
       "steps": [
         "Enter a vehicle showroom",
@@ -1392,7 +1761,17 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "10-20 min"
+      "timeEstimate": "10-20 min",
+      "missableNote": "The description describes smashing out of a specific vehicle showroom with no repeat wording; treat it as missable until confirmed in-game.",
+      "rarityPercent": 72,
+      "platform": "PlayStation 5",
+      "missableWindow": "One-time crime encounter",
+      "tags": [
+        "explore",
+        "missable",
+        "world"
+      ],
+      "session": "crime-cleanup"
     },
     {
       "id": 46,
@@ -1402,9 +1781,9 @@
       "guide": "Let's Go Bowling asks you to follow through at the Kolt & Associates bowling alley. Head to that specific alley in Leonida, roll a frame, and see your throw through to the end. The description points at one named location, so treat it as a specific visit rather than something you can chase anywhere.",
       "hint": "Play bowling at the Kolt & Associates alley.",
       "kind": "world",
-      "stage": 1,
+      "area": "Kolt & Associates bowling alley",
+      "stage": 5,
       "missable": true,
-      "missable_note": "The description names the Kolt & Associates bowling alley specifically with no repeat wording; treat it as missable until confirmed in-game.",
       "difficulty": 2,
       "steps": [
         "Go to the Kolt & Associates bowling alley",
@@ -1423,7 +1802,18 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "15-30 min"
+      "timeEstimate": "15-30 min",
+      "missableNote": "The description names the Kolt & Associates bowling alley specifically with no repeat wording; treat it as missable until confirmed in-game.",
+      "rarityPercent": 72,
+      "platform": "PlayStation 5",
+      "missableWindow": "One-time crime encounter",
+      "tags": [
+        "collectibles",
+        "explore",
+        "missable",
+        "world"
+      ],
+      "session": "crime-cleanup"
     },
     {
       "id": 47,
@@ -1433,9 +1823,9 @@
       "guide": "Personal Best wants a partnership with mass appeal, so you and your partner need to hit the top of your relationship. Keep working together, take part in shared activities, and keep the bond meter topped out until it breaks through to mass appeal. The description points to one special breakthrough, so treat it as a specific missable moment.",
       "hint": "A partnership moment with mass appeal.",
       "kind": "crime",
-      "stage": 6,
+      "area": "Partner relationship (mass appeal)",
+      "stage": 5,
       "missable": true,
-      "missable_note": "The description frames a partnership with mass appeal with no second-chance wording; treat it as missable until confirmed in-game.",
       "difficulty": 2,
       "steps": [
         "Build up a partnership with your partner",
@@ -1454,7 +1844,16 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "20-40 min"
+      "timeEstimate": "20-40 min",
+      "missableNote": "The description frames a partnership with mass appeal with no second-chance wording; treat it as missable until confirmed in-game.",
+      "rarityPercent": 82,
+      "platform": "PlayStation 5",
+      "missableWindow": "One-time crime encounter",
+      "tags": [
+        "crime",
+        "missable"
+      ],
+      "session": "crime-cleanup"
     },
     {
       "id": 48,
@@ -1464,7 +1863,8 @@
       "guide": "Actions Speak Louder asks you to make 500 choices for better or worse. Every dialogue pick and branching decision you make counts toward the total, so keep engaging with the game's choices rather than skipping them. With a full playthrough and varied picks you will bank 500 decisions and unlock it.",
       "hint": "Make choices (PSN tracks a count to 500).",
       "kind": "crime",
-      "stage": 6,
+      "area": "Dialogue and decisions",
+      "stage": 5,
       "missable": false,
       "count": {
         "target": 500,
@@ -1488,7 +1888,13 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "30-60 hrs"
+      "timeEstimate": "30-60 hrs",
+      "rarityPercent": 79,
+      "platform": "PlayStation 5",
+      "tags": [
+        "crime"
+      ],
+      "session": "crime-cleanup"
     },
     {
       "id": 49,
@@ -1498,9 +1904,9 @@
       "guide": "Bad Luck, I Guess is described as second time's the charm, pointing to a specific repeat encounter. Come back to a situation or character that did not go your way the first time and nail the second attempt. The description frames one targeted revisit, so treat it as a missable moment rather than a repeatable count.",
       "hint": "Succeed on a second try.",
       "kind": "crime",
-      "stage": 6,
+      "area": "Second-time encounter",
+      "stage": 5,
       "missable": true,
-      "missable_note": "The description frames a single second-time encounter with no wider wording; treat it as missable until confirmed in-game.",
       "difficulty": 2,
       "steps": [
         "Meet a character a second time",
@@ -1519,7 +1925,16 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "5-10 min"
+      "timeEstimate": "5-10 min",
+      "missableNote": "The description frames a single second-time encounter with no wider wording; treat it as missable until confirmed in-game.",
+      "rarityPercent": 82,
+      "platform": "PlayStation 5",
+      "missableWindow": "One-time crime encounter",
+      "tags": [
+        "crime",
+        "missable"
+      ],
+      "session": "crime-cleanup"
     },
     {
       "id": 50,
@@ -1529,9 +1944,9 @@
       "guide": "The Truth Is Out There is a simple reaction trophy for those weird moments — 'what the hell just happened?' When the game throws an odd, unexplained event your way, just let it play out and take the hit. The description offers no repeatable framing, so treat it as a one-off strange encounter until confirmed in-game.",
       "hint": "Witness something strange.",
       "kind": "crime",
-      "stage": 6,
+      "area": "Unexplained event",
+      "stage": 5,
       "missable": true,
-      "missable_note": "The description asks what the hell just happened with no repeatable framing; treat it as missable until confirmed in-game.",
       "difficulty": 2,
       "steps": [
         "Trigger a bizarre unexplained event",
@@ -1550,7 +1965,17 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "10-20 min"
+      "timeEstimate": "10-20 min",
+      "missableNote": "The description asks what the hell just happened with no repeatable framing; treat it as missable until confirmed in-game.",
+      "rarityPercent": 82,
+      "platform": "PlayStation 5",
+      "missableWindow": "One-time crime encounter",
+      "tags": [
+        "combat",
+        "crime",
+        "missable"
+      ],
+      "session": "crime-cleanup"
     },
     {
       "id": 51,
@@ -1560,7 +1985,8 @@
       "guide": "Ten Pin wants you to bowl 'em over with a melee drive-by. Take a melee weapon out while you are driving, roll up on pedestrians, and swing as you pass to knock them down. Line up a few targets along your route and clobber them from the window to satisfy the description.",
       "hint": "Knock someone down with a melee drive-by.",
       "kind": "crime",
-      "stage": 6,
+      "area": "Street drive-by",
+      "stage": 5,
       "missable": false,
       "difficulty": 4,
       "steps": [
@@ -1580,7 +2006,14 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "20-40 min"
+      "timeEstimate": "20-40 min",
+      "rarityPercent": 79,
+      "platform": "PlayStation 5",
+      "tags": [
+        "crime",
+        "driving"
+      ],
+      "session": "crime-cleanup"
     },
     {
       "id": 52,
@@ -1590,7 +2023,8 @@
       "guide": "Dime on the Dollar asks you to launder $250,000 worth of Marked Bills through your contacts. Play out the money-laundering side of the game, moving dirty cash through your contacts until the total hits $250,000. It builds up over a long stretch of play, so keep laundering regularly rather than chasing it in one session.",
       "hint": "Launder $250,000 of Marked Bills.",
       "kind": "crime",
-      "stage": 6,
+      "area": "Marked bill laundering",
+      "stage": 4,
       "missable": false,
       "count": {
         "target": 250000,
@@ -1614,7 +2048,13 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "4-6 hrs"
+      "timeEstimate": "4-6 hrs",
+      "rarityPercent": 79,
+      "platform": "PlayStation 5",
+      "tags": [
+        "crime"
+      ],
+      "session": "activities"
     },
     {
       "id": 53,
@@ -1624,7 +2064,8 @@
       "guide": "Treat Yo Self asks you to spend $100,000 across all shops. Every purchase you make at any shop in Leonida adds to the total, so treat yourself to gear, upgrades and luxuries as you play. Spread your buys around rather than hoarding, and the combined $100,000 spend rolls in before you know it.",
       "hint": "Spend $100,000 in shops.",
       "kind": "crime",
-      "stage": 6,
+      "area": "Shops across Leonida",
+      "stage": 4,
       "missable": false,
       "count": {
         "target": 100000,
@@ -1648,7 +2089,13 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "2-3 hrs"
+      "timeEstimate": "2-3 hrs",
+      "rarityPercent": 74,
+      "platform": "PlayStation 5",
+      "tags": [
+        "crime"
+      ],
+      "session": "activities"
     },
     {
       "id": 54,
@@ -1658,7 +2105,8 @@
       "guide": "Little Boxes asks you to purchase all garage properties. There are eight garages across Leonida you can buy, and each one you own counts toward the total. Work through the real-estate list picking up every garage until all eight are in your name, then the trophy unlocks.",
       "hint": "Buy all 8 garage properties.",
       "kind": "world",
-      "stage": 4,
+      "area": "Garage properties",
+      "stage": 2,
       "missable": false,
       "count": {
         "target": 8,
@@ -1682,7 +2130,14 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "2-3 hrs"
+      "timeEstimate": "2-3 hrs",
+      "rarityPercent": 64,
+      "platform": "PlayStation 5",
+      "tags": [
+        "explore",
+        "world"
+      ],
+      "session": "world-sweep"
     },
     {
       "id": 55,
@@ -1692,7 +2147,8 @@
       "guide": "On the Spot asks you to register 10 vehicles to the Scooter Bros app. Load up the app and add ten of your vehicles to your account one by one, so they are registered on your name. Steal, buy or collect rides and register each one until ten are on the books, then it counts as done.",
       "hint": "Register 10 vehicles in the Scooter Bros app.",
       "kind": "world",
-      "stage": 4,
+      "area": "Scooter Bros app",
+      "stage": 2,
       "missable": false,
       "count": {
         "target": 10,
@@ -1716,7 +2172,14 @@
         }
       ],
       "source_note": "Guide text: our own advice written from the official description — not yet checked in the game.",
-      "timeEstimate": "1-2 hrs"
+      "timeEstimate": "1-2 hrs",
+      "rarityPercent": 64,
+      "platform": "PlayStation 5",
+      "tags": [
+        "explore",
+        "world"
+      ],
+      "session": "world-sweep"
     }
   ]
 }
